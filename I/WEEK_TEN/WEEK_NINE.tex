@@ -1,0 +1,349 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\definecolor{qing}{RGB}{235,243,250} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=qing, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=2pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{qing}
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+
+\title{第10周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.\\
+
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+
+%\section{Problem 1(零空间的增长)}记$A\in \FF^{n\times n}$是任意域上的方阵.约定$A^0=I$是单位矩阵,以及$A^{k+1}=A\cdot A^K$.
+%\begin{qqq}
+%    证明有子空间的包含列\[
+%    0=N(A^0)\subset N(A^1) \subset N(A^2) \subset \cdots
+%    \]
+%    特别地,若$N(A^N)=N(A^{N+1})$,则$N(A^{N+1})=N(A^{N+2})=\cdots$.
+%\end{qqq}
+%\begin{proof}
+    
+%\end{proof}
+
+\section{二次型}
+\subsection{Ex 1.消歧义问题}
+假定$U$是$\FF$上的有限维线性空间.
+\begin{qqq}
+    称$f:U\times U \rightarrow \FF $是双线性的,当且仅当对任意向量与常数,
+    \[f(au+v,bx+y)=abf(u,x)+af(u,y)+f(v,x)+f(v,y),\]
+    试证明:$\{f\mid f:U\times U\rightarrow \FF\text{是双线性映射}\}$是一个$\FF$-线性空间,其对象是一些二元函数.求其维度与基.
+\end{qqq}
+\begin{proof}
+    $f\equiv 0$符合定义,因此集合非空.\\
+    定义加法$(f+g)(x,y)=f(x,y)+g(x,y)$,数乘$(kf)(x,y)=kf(x,y)$,
+    由定义$$(f+g)(au+v,bx+y)=ab(f+g)(u,x)+a(f+g)(u,y)+(f+g)(v,x)+(f+g)(v,y)$$
+    $$(kf)(au+v,bx+y)=f(kau+kv,bx+y)$$
+    维数是$\dim U\times \dim U$,基为${f(u_i,u_j)}$,其中$u_i$是$U$的一组基.
+\end{proof}
+\[{}\]
+\begin{qqq}
+    依照集合的Cartesian积,定义新的集合$U\times U=\{(u_1,u_2)\mid u_1,u_2 \in U\}.$试证明$U\times U$也是线性空间,并求其维数与基.
+\end{qqq}
+\begin{proof}
+     定义加法$(u_1,u_2)+(u_1'+u_2')=(u_1+u_1',u_2+u_2')\in U\times U$.\\
+     定义数乘$k(u_1,u_2)=(ku_1,ku_2)\in U\times U$.\\
+     维数是$dim U\times \dim U$.基是$(v_i,v_j)$,其中$v_i$是$U$的一组基.
+\end{proof}
+\[{}\]
+\begin{qqq}
+    试证明:$\{f\mid f: U\times U\rightarrow \FF \text{是线性映射}\}$是一个$\FF$-线性空间,其对象是一些一元函数.求其维数与基.
+\end{qqq}
+\begin{proof}
+    显然集合非空\\
+    定义加法$(f+g)(u_1,u_2)=f(u_1,u_2)+g(u_1,u_2)$和数乘$(kf)(u_1,u_2)=kf(u_1,u_2)$.\\
+    那么由定义可以知道这个集合对加法和数乘都封闭.且满足其他性质.\\
+    维数是$\dim U\times \dim U$,基为${f(u_i,u_j)}$,其中$u_i$是$U$的一组基.
+\end{proof}
+\newpage
+\subsection{Ex 2.二次型的最值问题}
+\begin{qqq}
+     记$A$是实对称矩阵,证明$A$的最大特征值是$\sup_{x\neq 0}\frac{x^TAx}{x^Tx}$,并考虑取达最大值的充要条件. 同时, 这也说明$\sup$可以改成$\max$.
+\end{qqq}
+\begin{proof}
+    作换元处理,令$x=Py$,其中$P$为正交矩阵且$P^{-1}AP=D$,$D$为对角矩阵.\\那么$$\sup_{x\neq 0} \frac{x^TAx}{x^Tx}=\sup_{y\neq 0} \frac{y^TDy}{y^Ty}$$.\\
+    设$y=\begin{pmatrix}
+        y_1&y_2&\cdots&y_n
+    \end{pmatrix}^T,D=\op{diag}(\lambda_1,\lambda_2,\ldots,\lambda_n)$\\
+    因此求$$\sup _{\sum\limits_{k=1}^n y_k^2\neq 0}\frac{\sum_{k=1}^n \lambda_ky_k^2}{\sum_{k=1}^n y_k^2}$$
+    考虑$\max\limits_{1\leq k \leq n}(\lambda_k)=\lambda_r$,那么$$\frac{\sum \lambda_ky_k^2}{\sum y_k^2}\leq \frac{\sum \lambda_ry_k^2}{\sum y_k^2}=\lambda_r$$
+    取等当且仅当$y_i=y_r\cdot \delta_{ir},\forall 1\leq i\leq n$,其中$r$满足$\lambda_r=\max\limits_{1\leq i \leq n}(\lambda_i)$.
+\end{proof}
+\[{}\]
+\begin{qqq}
+    记$A$是实对称矩阵,记最大特征值为$\lambda_1$的重数为1,相应的特征向量为$Av=\lambda_1v$.证明$A$的第二特征值是$\sup _{x \bot x_1,x\neq 0}\frac{x^TAx}{x^Tx}$.此处$x_1$是使得上一问取达最大值的任一向量.
+\end{qqq}
+\begin{proof}
+    若$x\bot x_1$,也即$xx_1^T=0$,也即$Py\cdot(Py_1)^T=-0$,即$yy_1^T=0$.其中$y_1=\begin{pmatrix}t&0&\cdots&0\end{pmatrix}^T$, $t$ 为任意非0实数.\\
+    因此令$y'=\begin{pmatrix}
+        y_2&\cdots&y_n
+    \end{pmatrix}^T$,$D=\op{diag}(\lambda_2,\ldots,\lambda_n)$\\
+    $$\sup _{x \bot x_1,x\neq 0}\frac{x^TAx}{x^Tx}=\sup_{y'\neq 0}\frac{y'^TD'y}{y'^Ty}$$
+    下同 \textbf{问题1.4.} 即可.
+\end{proof}
+\[{}\]
+\begin{qqq}
+    假定$A$是实对称正定矩阵,证明$\inf _{x\neq 0}\frac{x^TA^{-1}x}{x^Tx}$和$\sup _{x\neq 0}\frac{x^TAx}{x^Tx}$互为倒数.
+\end{qqq}
+\begin{proof}
+    由于$A$是正定矩阵,知道$A^{-1}$也正定,即$A$的所有特征值都大于0.而$A^{-1}$的特征值为$A$的特征值的倒数.\\
+    类似\textbf{问题1.4.}我们可以知道,$A$的最小特征值是$\inf_{x\neq 0}\frac{x^TAx}{x^Tx}$.因此若$A$的最大特征值为$\lambda_1$,那么$A^{-1}$的最小特征值是$1/\lambda_1$.
+\end{proof}
+\[{}\]
+\begin{qqq}
+    记$\{x_i\}^n_{i=1}$是实数,满足$x_1^2+x_2^2+\cdots+x_n^2=1$与$x_1+x_2+\cdots+x_n=0$.求\[x_1x_2+x_2x_3+\cdots+x_{n-1}x_n+x_nx_1\]
+    的最大值.
+\end{qqq}
+\begin{aaa}
+    记$x=\begin{pmatrix}
+        0&x_1&x_2&\cdots&x_n
+    \end{pmatrix}^T$, $x^T\cdot\textbf{1}=0.$\\
+    对称矩阵$A=\begin{pmatrix}
+        0&1&0&0&\cdots&1\\
+        1&0&1&0&\cdots&0\\
+        0&1&0&1&\ddots&0\\
+        \vdots&\ddots&\ddots&\ddots&\ddots&\vdots\\
+        0&\cdots&0&1&0&1\\
+        1&0&\cdots&0&1&0
+    \end{pmatrix}$,第二大特征值为$\lambda_2$,那么$\max \sum \limits_{cyc}x_1x_2=\frac{\lambda_2}{2}$
+\end{aaa}
+\newpage
+\subsection{Ex 5.极分解}以下仅讨论对称半正定矩阵.
+\begin{qqq}
+    若$A$是对称半正定矩阵,则存在唯一的对称半正定矩阵$\sqrt{A}$使得$\sqrt{A}^2=A$.
+\end{qqq}
+\begin{proof}
+    $A=U^T\Lambda U$,那么取$\sqrt{A}=U^T\sqrt{\Lambda}U$.\\
+    假设存在对称半正定矩阵$B^2=C^2=A$,那么$B^2=C^2$,设$B=U^*\Lambda U,C=V^*\Lambda V.$ 因此$U^*\Lambda^2U=V^*\Lambda^2V$.故而$\Lambda^2UV^*=UV^*\Lambda^2,$,因此$UV^*$与$\Lambda^2$可交换,因此$UV^*$是对角矩阵因此$UV^*$与$\Lambda$可交换    .故$UV^*\Lambda=\Lambda UV^*$,即$V^*\Lambda V=U^*\Lambda U$. 
+\end{proof}
+\[{}\]
+\begin{qqq}
+    任意矩阵$A$都是对称半正定矩阵与正交矩阵的乘积.若$A$对称正定,则这一分解唯一.
+\end{qqq}
+\begin{proof}
+    $A=U^*\Sigma V=U^*\Sigma U\cdot U^*V=SQ$.\\
+    假设$A=SQ=S_1Q_1$,因此$AA^*=SS^*=S_1S_1^*$,故$S^2=S_1^2$,利用上一问知道$S=S_1$.
+\end{proof}\[{}\]
+\begin{qqq}
+    假设$S$实正定,$Q$正交.若$\det(xI-SQ)=\det(xI-S)$,则$S=SQ$.
+\end{qqq}
+\begin{proof}
+    由题目知$S \sim SQ$,存在正交矩阵$U,USU^*=D$.\\
+    不会了.
+\end{proof}
+\newpage
+\section{Jordan标准型}
+\subsection{Problem 3.}
+假定$A$与$B$是\textbf{一般域}上的方阵,下面研究乘法式$AX-XB$.
+\begin{qqq}
+    (第三问)证明:$AX-XB=O$只有零解,当且仅当$A$与$B$的特征多项式互素.
+\end{qqq}
+\begin{proof}
+    不失一般性设$X=\begin{pmatrix}
+        I_r&O\\O&O
+    \end{pmatrix}$,其中$r=rank(X)$,$A=\begin{pmatrix}
+        A_{11}&A_{12}\\A_{21}&A_{22}
+    \end{pmatrix},B=\begin{pmatrix}
+        B_{11}&B_{12}\\B_{21}&B_{22}
+    \end{pmatrix}$\\
+    \[AX=\begin{pmatrix}
+        A_{11}&O\\A_{21}&O
+    \end{pmatrix},\quad XB=\begin{pmatrix}
+        B_{11}&B_{12}\\O&O
+    \end{pmatrix}.\]
+    $AX=XB$,那么$A_{11}=B_{11},A_{21}=O,B_{12}=O$
+    \[\det(\lambda I-A)=\det \begin{pmatrix}
+        \lambda I-A_{11}&A_{12}\\O&\lambda I-A_{22}
+    \end{pmatrix}\]
+    \[\det(\lambda I-B)=\det \begin{pmatrix}
+        \lambda I-B_{11}&O\\B_{21}&\lambda I-B_{22}
+    \end{pmatrix}\]
+    所以$\lambda I-A$与$\lambda I-B$的特征值由$r$个相同.
+    所以$X=O$等价于$A$与$B$的特征多项式互素.
+\end{proof}
+\[{}\]
+\begin{qqq}
+    给定矩阵$A\in \FF^{n\times n}$和$B\in \FF^{m\times m}$.证明一下命题等价.
+    \begin{enumerate}
+        \item 对未知量$X\in \FF^{n\times m}$,方程$AX-XB=O$只有零解.
+        \item 任意给定矩阵$C\in \FF^{n\times m}$,对未知量$X\in \FF^{n\times m}$,方程$AX-XB=C$总有解.
+        \item 任意给定矩阵$C\in \FF^{n\times m}$,对未知量$X\in \FF^{n\times m}$,方程$AX-XB=C$有且仅有唯一解.
+        \item 对任意相似矩阵$C$,总有相似矩阵\[\begin{pmatrix}A&C\\O&B\end{pmatrix}\sim\begin{pmatrix}A&O\\O&B\end{pmatrix}\]
+        \item $A$与$B$的特征多项式互素.
+    \end{enumerate}
+\end{qqq}
+\begin{proof}
+    \[{}\]
+    \begin{enumerate}
+        \item [$(5)\Leftrightarrow(1)$]上一问已经证明.
+        \item [$(5)\Rightarrow(3)$] 作以下矩阵变换结果不变\[B\rightarrow P^{-1}BP,C\rightarrow CP,X\rightarrow XP.\]于是假定$B$是Jordan标准型.\\设$X=(\alpha_1,\ldots,\alpha_n),C=(\beta_1,\ldots,\beta_n)$.那么$AX-XB=C$可以拆分为k个独立方程,如果$B$有n个快\\$(A-\lambda_i I)\alpha_i=\beta_i.$由于互素因此$\lambda_i$不是$A$的特征值.$A-\lambda_iI$可逆,因此每个方程都有解,所以矩阵方程有解且唯一.
+        \item [$(3)\Rightarrow(5)$] 假设$A,B$有相同特征值$\lambda$.\\若这$k$个方程有一个无解,那么这个矩阵方程无解.\\若都有解,由于$\lambda$是$A$的特征值,那么$(A-\lambda I)x=0$有无穷多组解.若$(\alpha_1,\ldots,\alpha_n)$是上述方程的一组解,那么对$(A-\lambda I)x=0$的任意一个解$\alpha_0$,$(\alpha_1,\ldots,\alpha_n+\alpha_0)$也是解,因此$AX-XB=C$有无穷多组解.矛盾
+        \item [$(1)\Leftrightarrow(4)$] 显然成立.
+        \item [$(2)\Rightarrow(3)$] 不太会
+    \end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

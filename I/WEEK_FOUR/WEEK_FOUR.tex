@@ -1,0 +1,686 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+
+\title{第四周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section*{对称矩阵}
+\addcontentsline{toc}{section}{对称矩阵}
+
+\subsection{习题1}
+对称矩阵判断题.不必证明真命题,但须对假命题举出反例.
+\begin{qqq}
+线性空间$\mathbb{F}^{n\times n}$中的矩阵构成$\cnm{n+1}{2}=\frac{n^2+n}{2}$-维子空间.
+\end{qqq}
+\begin{aaa}
+    对.
+\end{aaa}
+\begin{qqq}
+        分块矩阵$\begin{pmatrix}
+            A&B\\C&D
+        \end{pmatrix}$是对称的,当且仅当$B=C^T$.
+\end{qqq}
+\begin{aaa}
+    错的.还需要$A,D$均为对称矩阵.反例取$A$非对称即可.
+\end{aaa}
+\begin{qqq}
+    给定阶数相同的方阵$A$与$B$,则$A\cdot B$也对称.
+\end{qqq}
+\begin{aaa}
+    错.需要$A\cdot B=B \cdot A$,否则不可以.反例取$A=\begin{pmatrix}
+        1&1\\1&0
+    \end{pmatrix},B=\begin{pmatrix}
+        1&0\\0&0
+    \end{pmatrix},\\$$AB=\begin{pmatrix}
+        1&0\\1&0
+    \end{pmatrix}.$$AB$不对称.
+\end{aaa}
+\begin{qqq}
+    给定阶数相同的方阵$A$与$B$,若$A\cdot B=B\cdot A$对称,则$A$与$B$必有一者对称.
+\end{qqq}
+\begin{aaa}
+    错.取非对称满秩方阵$A$和他的逆矩阵即可.
+\end{aaa}
+\begin{qqq}
+    若$A^2$是对称矩阵,则$A$对称.
+\end{qqq}
+\begin{aaa}
+    错.取$A=E_{1,2},A^2=O$对称,但是$A$不是对称矩阵.
+\end{aaa}
+\subsection{习题2}
+\begin{qqq}
+    若$X$与线性空间$\mathbb{F}^n$中一切矩阵乘积可交换,尝试求出$X$.
+\end{qqq}
+\begin{aaa}
+    \begin{enumerate}
+        \item 若$A=I-E_{ii}$,那么$AX$效果为将$X$的第$i$行全部变成零.$XA$效果为将$X$的第$i$列全部变成零.$AX=XA$说明$x_{ij}=x_{ji}=0(1 \leq j \leq n$ 且 $j \neq 0).$$i$取遍$1$到$n$后,可知$X$为对角矩阵.
+        \item 不妨设$X={diag}(a_1,a_2,\ldots ,a_n)$,取$A$为元素全部为1的矩阵.$$AX=\begin{pmatrix}
+            a_1&a_2&\cdots &a_n\\
+            a_1&a_2&\cdots &a_n\\
+            \vdots&\vdots&\ddots&\vdots\\
+            a_1&a_2&\cdots &a_n\\
+            \end{pmatrix}.\quad XA=\begin{pmatrix}
+            a_1&a_1&\cdots & a_1\\
+            a_2&a_2&\cdots & a_2\\
+            \vdots & \vdots & \ddots &\vdots\\
+            a_n&a_n&\cdots&a_n
+            \end{pmatrix}.$$
+        \item 所以,$\forall i ,j,a_i=a_j$,即$X=kI,k\in \mathbb{F}$.
+    \end{enumerate}
+\end{aaa}
+\subsection{习题3}
+\begin{qqq}
+    给出以下方程的一个解:
+    \begin{align}
+        L\cdot L^T=\begin{pmatrix}
+            3&2&1\\2&2&1\\1&1&1
+        \end{pmatrix}
+    \end{align}
+    其中要求$L$是下三角矩阵.
+    \begin{align}
+        \begin{pmatrix}
+            a\\b&c\\d&e&f
+        \end{pmatrix}
+    \end{align}
+    \begin{itemize}
+        \item 以上是数值分析中常见的Cholesky分解.这一个分解对所有(半)正定矩阵奏效.
+    \end{itemize}
+\end{qqq}
+\begin{aaa}
+    $$L=\begin{pmatrix}
+        \sqrt3\\2/\sqrt3&\sqrt2/\sqrt3\\1/\sqrt3&1/\sqrt6&1/\sqrt2
+
+    \end{pmatrix}$$
+\end{aaa}
+\subsection{习题4}
+\begin{qqq}
+    给定$(a_1,a_2,a_3,a_4)$,求解以下方程中的$(x_1,x_2,x_3)$.
+    \begin{align}
+        \begin{pmatrix}
+            &&&1\\ &&1&x_1\\ &1&x_1&x_2\\ 1&x_1&x_2&x_3
+        \end{pmatrix}
+        \cdot
+        \begin{pmatrix}
+            &&&a_4\\1&&&a_3\\ & 1&&a_2\\ &&1&a_1
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            &1&& \\ &&1&\\ &&&1\\a_4&a_3&a_2&a_1
+        \end{pmatrix}
+        \cdot
+        \begin{pmatrix}
+            &&&1\\ && 1&x_1\\ & 1&x_1&x_2\\1&x_1&x_2&x_3
+        \end{pmatrix}
+    \end{align}
+    空缺的位置都是0.
+    \begin{itemize}
+        \item 结合结合有理标准型, 以上构造间接解答了以下问题:任意域上的方阵$A$通过对称矩阵与其转置相
+        似,即,在对称矩阵$S$使得$S^{-1}AS=A^T.$
+    \end{itemize}
+\end{qqq}
+\begin{aaa}
+    计算得:
+    $$LHS=\begin{pmatrix}
+        0&0&1&a_1\\0&1&x_1&a_2+x_1a_1\\1&x_1&x_2&a_3+x_1a_2+x_2a_1\\x_1&x_2&x_3&a_4+x_1a_3+x_2a_2+x_3a_1
+    \end{pmatrix}.$$
+    $$RHS=\begin{pmatrix}
+        0&0&1&x_1\\0&1&x_1&x_2\\1&x_1&x_2&x_3\\a_1&a_2+x_1a_1&a_3+x_1a_2+x_2a_1&a_4+x_1a_3+x_2a_2+x_3a_1
+    \end{pmatrix}.$$
+    所以可以得到线性方程组$$
+    \begin{pmatrix}
+        1&0&0\\a_1&-1&0\\a_2&a_1&-1
+    \end{pmatrix}
+    \begin{pmatrix}
+        x_1\\x_2\\x_3
+    \end{pmatrix}
+    =\begin{pmatrix}
+        a_1\\-a_2\\-a_3
+    \end{pmatrix}.$$
+    可以解得$$x_1=a_1,\quad x_2=a_1^2+a_2,\quad x_3=a_1^3+2a_1a_2+a_3.$$
+\end{aaa}
+\subsection{习题5}
+\begin{qqq}
+    将以下两个实矩阵分解作$2$个实对称矩阵的乘积,
+    \begin{align}
+        \begin{pmatrix}
+            \lambda&1&\\&\lambda&1\\&&1
+        \end{pmatrix},\quad
+        \begin{pmatrix}
+            a&b& & \\-b&a&1& \\ & &a&b\\ & & -b &a
+        \end{pmatrix}.
+    \end{align}
+    \begin{itemize}
+        \item 依照复矩阵的Jordan型与实矩阵的旋转-反射标准型,任意方阵(相应的,复方阵)一定是两个实对称矩阵(相应的,复对称矩阵)的乘积.
+        \item 作为推论,两个对称矩阵的乘积不必对称.
+    \end{itemize}
+\end{qqq}
+\begin{aaa}
+    $$\begin{pmatrix}
+        \lambda&1&\\&\lambda&1\\&&1
+    \end{pmatrix}=\begin{pmatrix}
+        &1&\lambda\\1&\lambda&\\\lambda&&
+    \end{pmatrix}\cdot \begin{pmatrix}
+        &&1\\ &1&\\1&&
+    \end{pmatrix}.$$
+    $$\begin{pmatrix}
+        a&b& & \\-b&a&1& \\ & &a&b\\ & & -b &a
+    \end{pmatrix}=\begin{pmatrix}
+        &&b&a\\ &1&a&-b\\b&a&&\\a&-b&&
+    \end{pmatrix}\cdot \begin{pmatrix}
+        &&&1\\&&1& \\&1&&\\1&&&    \end{pmatrix}.$$
+\end{aaa}
+\subsection{习题6}
+\begin{qqq}
+    若方阵$A$满足$A(A-A^T)=O$.证明$A=A^T$.
+    \begin{itemize}
+        \item  若认为考试题比较简单,可尝试由$A(A-A^T)A=O$推导$A=A^T$.此处可以借用实矩阵的正交标准型:\begin{align}
+            A=Q^T\cdot \begin{pmatrix}
+                S&R\\O&O
+            \end{pmatrix}\cdot Q
+        \end{align}
+        其中$Q$是正交矩阵,$S$是可逆矩阵.
+        \item 这一标准型原理简单,但各大教材很少涉及,往后还会反复出现.
+    \end{itemize}
+\end{qqq}
+\begin{aaa}
+    \begin{enumerate}
+        \item [(1)]\begin{proof}若$A=O$,显然成立.\newline
+                    若$A\neq O$,考虑到$tr(AA^T)\geq 0.$取等当且仅当$A=O$;\\$\quad tr(A^T)=tr(A);$$\quad tr(A\pm B)=tr(A)\pm tr(B).\quad tr(AB)=tr(BA).$(这是容易验证的.)\\
+                    \begin{align*}
+                        tr((A-A^T)(A^T-A))&=tr(AA^T-AA-A^TA^T+A^TA)\\
+                        &=tr(A^TA-A^TA^T)\\
+                        &=tr(A^TA)-tr(A^TA^T)\\
+                        &=tr(AA^T)-tr(AA)\\
+                        &=tr(O)\\
+                        &=0
+                    \end{align*}
+                    故$A=A^T.$
+                \end{proof}
+        \item[(2)]\begin{proof}
+            $A(A-A^T)A=O$,即$A^3=AA^TA.$,带入$A$得正交标准型得到
+            $$\begin{pmatrix}S^3&S^2R\\O&O
+            \end{pmatrix}
+            =\begin{pmatrix}
+                SS^TS+RR^TS&SS^TR+RR^TR\\O&O
+            \end{pmatrix}.$$
+            所以$$SS^TS+RR^TS=S^3.$$
+            两边同时右乘$S^{-1}$得正交标准型得到$$SS^T+RR^T=S^2.$$
+            因此\begin{align*}
+                0&\leq tr((A-A^T)(A^T-A))\\
+                &=tr(SS^T-S^2-S^TS^T+S^TS)\\
+                &=2tr(SS^T-S^2)\\
+                &=-2tr(RR^T)\\
+                &\leq 0.
+            \end{align*}
+            所以$$R=R^T.$$
+        \end{proof}
+    \end{enumerate}
+\end{aaa}
+\newpage
+\section{专题:相抵标准型(仅仅只做了Problem 1)}
+\subsection{Problem 1}
+\begin{qqq}
+    (同时相抵化)对相同规格的矩阵$A$和$B$.若$$\operatorname{rank}(A+B)=\operatorname{rank}(A)+\operatorname{rank}(B),$$则存在$P\in \operatorname{GL}_m(\mathbb{F})$与$Q\in \operatorname{GL}_n(\mathbb{F})$使得$$
+    PAQ=\begin{pmatrix}
+        I_{\operatorname{rank}(A)}&O&O\\O&O&O\\O&O&O
+    \end{pmatrix},\quad PBQ=\begin{pmatrix}
+        O&O&O\\O&O&O\\O&O&I_{\operatorname{rank}(B)}
+    \end{pmatrix}.
+    $$
+\end{qqq}
+\begin{proof}
+    由不等式$r(A+B)\leq r((A\quad B))\leq r(A)+r(B)$知,\\
+    若$r(A+B)=r(A)+r(B)$有$r((A\quad B))=r(A)+r(B)$.\\
+    存在可逆矩阵$P$使得$PA$为行最简,$PA=\begin{pmatrix}
+        A_1\\O
+    \end{pmatrix},A_1$为行满秩矩阵.设$PB=\begin{pmatrix}
+        B_1\\B_2
+    \end{pmatrix}.\\$
+    $$P\begin{pmatrix}
+        A&B
+    \end{pmatrix}=\begin{pmatrix}
+        A_1&B_1\\O&B_2
+    \end{pmatrix}\longrightarrow  \begin{pmatrix}
+        A_1&O\\O&B_2
+    \end{pmatrix}$$
+    $r(A\quad B)=r\left(\begin{pmatrix}
+        A_1&O\\O&B_2
+    \end{pmatrix}\right)=r(A_1)+r(B_2)=r(A)+r(B)$,得到$r(B)=r(B_2)=r\left(\begin{pmatrix}
+        B_1\\B_2
+    \end{pmatrix}\right)$.因此存在可逆矩阵$X$使得$B_1=XB_2$.\\
+    所以$$\begin{pmatrix}
+        I_{r_1}&-X\\O&I_{n-r_1}
+    \end{pmatrix}\begin{pmatrix}
+            B_1\\B_2
+        \end{pmatrix}=\begin{pmatrix}
+            O\\B_2
+        \end{pmatrix}$$
+        若同时存在可逆矩阵$M$使得$MB_2=\begin{pmatrix}
+            O\\B_3
+        \end{pmatrix}$,$B_3$为行最简\\
+        即$$\begin{pmatrix}
+            I_{r(A)}&-X\\O&M
+        \end{pmatrix}B=\begin{pmatrix}
+            O\\O\\B_3
+        \end{pmatrix}$$
+        $$\begin{pmatrix}
+            I_{r(A)}&-X\\O&M
+        \end{pmatrix}A=\begin{pmatrix}
+            A_1\\O\\O
+        \end{pmatrix}$$
+        同理再对列进行类似操作即得结论.
+\end{proof}
+\begin{qqq}
+    (分块上三角化)记矩阵(各分块不必是方阵)$$M=\begin{pmatrix}
+        A&C\\O&B
+    \end{pmatrix}.$$
+    证明$r(M)=r(A)+r(B)$的充要条件如下:
+    \begin{itemize}
+        \item 存在矩阵$X$和$Y$使得$AX+YB=C.$
+    \end{itemize}
+\end{qqq}
+\begin{proof}
+    记$P=\begin{pmatrix}
+        P_1&O\\O&P_2
+    \end{pmatrix},Q=\begin{pmatrix}
+        Q_1&O\\O&Q_2
+    \end{pmatrix}$,其中$P_1AQ_1=\begin{pmatrix}
+        I_{r_1}&O\\O&O
+    \end{pmatrix},P_2BQ_2=\begin{pmatrix}
+        I_{r_2}&O\\O&O
+    \end{pmatrix}.\\P_1CQ_2=\begin{pmatrix}
+        C_1&C_2\\C_3&C_4
+    \end{pmatrix}.$\\\
+    $$M'=PMQ=\begin{pmatrix}
+        I_{r_1}&O&C_1&C_2\\O&O&C_3&C_4\\O&O&I_{r_2}&O\\O&O&O&O
+    \end{pmatrix}.$$
+    存在$P',Q'$使得$$P'M'Q'=\begin{pmatrix}
+        I_{r_1}&&&\\ &C_4&&\\ && I_{r_2}&\\ &&&O
+    \end{pmatrix}$$
+    所以$r(M)=r(A)+r(B)\Leftrightarrow C_4=O\Leftrightarrow P_1CQ_2=\begin{pmatrix}
+        C_1&C_2\\C_3&O
+    \end{pmatrix}\Leftrightarrow C=P_1^{-1}\begin{pmatrix}
+        C_1&C_2\\C_3&O
+    \end{pmatrix}Q^{-1}_2$.
+    \begin{align*}
+        P_1^{-1}\begin{pmatrix}
+            C_1&C_2\\C_3&O
+        \end{pmatrix}Q^{-1}_2&=P_1^{-1}\cdot \begin{pmatrix}
+        I_{r_1}&O\\O&O
+        \end{pmatrix} \cdot \begin{pmatrix}
+            O&C_2\\O&O
+        \end{pmatrix}Q^{-1}_2+P_1^{-1}\begin{pmatrix}
+        C_1&O\\C_3&O
+        \end{pmatrix}\cdot \begin{pmatrix}
+        I_{r_2}&O\\O&O
+        \end{pmatrix} \cdot Q^{-1}_2\\
+        &=AQ_1\begin{pmatrix}
+            O&C_2\\O&O
+        \end{pmatrix}Q_2^{-1}+P_1^{-1}\begin{pmatrix}
+            C_1&O\\C_3&O
+            \end{pmatrix}P_2B.
+    \end{align*}
+    取$X=Q_1\begin{pmatrix}
+        O&C_2\\O&O
+    \end{pmatrix},Y=P_1^{-1}\begin{pmatrix}
+        C_1&O\\C_3&O
+        \end{pmatrix}P_2$,得$r(M)=r(A)+r(B)\Leftrightarrow AX+YB=C.$
+\end{proof}
+\begin{qqq}
+    (何时能砍掉无用的行列空间)所有矩阵不必是方阵.证明:
+    $$r\left( \begin{pmatrix}
+        A&B\\C&D
+    \end{pmatrix}\right) =r(A)$$
+    的充要条件是存在$X$和$Y$使得以下三个等式同时成立$$AX=B,\quad YA=C,\quad YAX=D$$
+\end{qqq}
+
+    \begin{enumerate}
+        \item [充分性:]\begin{proof}
+            $$\begin{pmatrix}
+                A&B\\C&D
+            \end{pmatrix}=\begin{pmatrix}
+                A&AX\\YA&YAX
+            \end{pmatrix}\longrightarrow \begin{pmatrix}
+                A&AX\\O&O
+            \end{pmatrix}\longrightarrow \begin{pmatrix}
+                A&O\\O&O
+            \end{pmatrix}.$$得到$r(\begin{pmatrix}
+        A&B\\C&D
+    \end{pmatrix})=r(A)$
+        \end{proof}
+        \item [必要性:]\begin{proof}过程类似于问题2.2;
+                $$\begin{pmatrix}
+                    P&O\\O&I
+                \end{pmatrix}\begin{pmatrix}
+                    A&B\\C&D
+                \end{pmatrix}\begin{pmatrix}
+                    I&O\\O&Q
+                \end{pmatrix}=\begin{pmatrix}
+                    I_{r}&O&B_1\\O&O&B_2\\C_1&C_2&D
+                \end{pmatrix}\longrightarrow \begin{pmatrix}
+                    I_{r}&O&O\\O&O&B_2\\C_1&C_2&D-C_1B_1
+                \end{pmatrix}\longrightarrow \begin{pmatrix}
+                    I_{r}&O&O\\O&O&B_2\\O&C_2&D-C_1B_1
+                \end{pmatrix}$$
+                所以$C_2=O,\quad B_2=O,\quad D=C_1B_1.$\\
+                $$PB=\begin{pmatrix}
+                    B_1\\O
+                \end{pmatrix},\quad B=P^{-1}\begin{pmatrix}
+                B_1\\O
+                \end{pmatrix}=P^{-1}\begin{pmatrix}
+                    I_{r}&O\\O&O
+                \end{pmatrix}\begin{pmatrix}
+                B_1\\O
+                \end{pmatrix}=P^{-1}\begin{pmatrix}
+                    I_{r}&O\\O&O
+                \end{pmatrix}Q^{-1}Q\begin{pmatrix}
+                B_1\\O
+                \end{pmatrix}=AX$$ 其中$$X=Q\begin{pmatrix}
+                    B_1\\O
+                \end{pmatrix}$$
+                其他等式同理可以得到.
+        
+        \end{proof}
+    \end{enumerate}
+
+
+
+\subsection{Problem 2(没做)}
+\begin{qqq}
+    任取矩阵$A\in \mathbb{F}^{m\times n}$与$B\in \mathbb{F}^{n\times m}$,满足$r(A)=r(ABA)$.证
+    明: 存在行满秩或列满秩的矩阵$C$使得$ABC=CBA$.
+    \begin{itemize}
+        \item 对$M=N$的特殊情形而言,  $AB$与$BA$相似.
+    \end{itemize}
+\end{qqq}
+
+\begin{qqq}
+    任取矩阵$A\in \mathbb{F}^{m\times n}$与$B\in \mathbb{F}^{n\times m}$,满足$r(B)=r(ABA)$.证
+    明: 存在行满秩或列满秩的矩阵$C$使得$ABC=CBA$.
+    \begin{itemize}
+        \item 对$M=N$的特殊情形而言,  $AB$与$BA$相似.
+    \end{itemize}
+\end{qqq}
+
+\begin{qqq}
+    任取矩阵$A \in \mathbb{F}^{m\times n}$与$B\in \mathbb{F}^{n\times m}$,使得以下条件恒成立$$r((AB))^d=r((BA)^d),(\forall d \in \mathbb{N}_+).$$
+    证
+    明: 存在行满秩或列满秩的矩阵$C$使得$ABC=CBA$.
+    \begin{itemize}
+        \item 对$M=N$的特殊情形而言,  $AB$与$BA$相似.
+    \end{itemize}
+\end{qqq}
+
+\subsection{Problem 3(没做)}
+\begin{qqq}
+    假定存在方阵$A\in \mathbb{F}^{n\times n}$满足$A^2=O$.证明:存在$S\in \operatorname{GL}_n(\mathbb{F})$使得$$
+    S^{-1}AS=\begin{pmatrix}
+        O&I&O\\O&O&O\\O&O&O
+    \end{pmatrix}.$$
+\end{qqq}
+
+\begin{qqq}
+    假定存在方阵$A\in \mathbb{F}^{n\times n}$满足$A^2=A$.证明:存在$S\in \operatorname{GL}_n(\mathbb{F})$使得$$
+    S^{-1}AS=\begin{pmatrix}
+        I&O\\O&O
+    \end{pmatrix}.$$
+    \begin{itemize}
+        \item 等价的,存在$A=BC$使得$BC=I_{\operatorname{rank}(A)}.$
+    \end{itemize}
+\end{qqq}
+
+\begin{qqq}
+    假定存在方阵$A\in \mathbb{F}^{n\times n}$满足$A^2=I$.证明:存在$S\in \operatorname{GL}_n(\mathbb{F})$使得$$
+    S^{-1}AS=\begin{pmatrix}
+        I&O\\O&-I
+    \end{pmatrix}.$$
+    \begin{itemize}
+        \item 假定域$\mathbb{F}$的特征为$2$,即$1+1=0.$此时结论做何变化?
+    \end{itemize}
+\end{qqq}
+
+\begin{qqq}
+    假定存在方阵$A\in \mathbb{F}^{n\times n}$满足$A^3=A$.证明:存在$S\in \operatorname{GL}_n(\mathbb{F})$使得$$
+    S^{-1}AS=\begin{pmatrix}
+        I&O&O\\O&-I&O\\O&O&O
+    \end{pmatrix}.$$
+    \begin{itemize}
+        \item 假定域$\mathbb{F}$的特征为$2$,即$1+1=0.$此时结论做何变化?
+    \end{itemize}
+\end{qqq}
+
+\begin{qqq}
+    假定方阵$A$是幂零的,即,存在某一$\in \mathbb{N}_+$使得$A^n=O$.求证:
+    \begin{itemize}
+        \item 存在$S\in \operatorname{GL}_n\mathbb{F}$使得$S^{-1}AS$是$\{0,1\}$取值的矩阵,且该矩阵的$1$仅允许分布在$E_{i,i+1}$位置.
+    \end{itemize}
+\end{qqq}
+
+\begin{qqq}
+    给定任意方阵$A\in \mathbb{F}^{n\times n}$.证明:存在$S\in \operatorname{GL}_n(\mathbb{F})$使得$$S^{-1}AS=\begin{pmatrix}
+        D&O\\O&N
+    \end{pmatrix}.$$以上,$D$是可逆的,$N$是幂零的.
+\end{qqq}
+
+\newpage
+\section{习题:矩阵的秩}
+\begin{center}
+    \large{我选择习题2,7,9,10.}
+\end{center}
+\subsection{行满秩,列满射}
+\subsection{常用技巧:完全平方}
+\textbf{例子.}此例假定$\mathbb{Q}\subset \mathbb{F} \subset \mathbb{C}$,定义$A^H=(\overline{a_{i,j}} )$是矩阵的共轭转置,则
+\begin{equation}
+    N(A)=N(A^HA)=N(AA^HA)=N(A^HAAA^HA)=\cdots
+\end{equation}
+第一个不等式证明如下:
+\begin{enumerate}
+    \item 若$Ax=0$,则$A^Hx=0$;反之,
+    \item 若$A^HAx=0$,则$x^HA^HAx=\|Ax\|^2=0$,从而$Ax=0.$
+\end{enumerate}
+每处的等式都能归纳得到.
+\subsubsection{习题2}
+\begin{qqq}
+    固定数域上得矩阵$A$,称$B$为"好矩阵",若$B$是有限个$A$与$A^H$的交错积.证明任意两个好矩阵的秩相同.
+\end{qqq}
+\begin{proof}
+    知道例子中的结论后,我们知道$n=\dim N(A)+r(A)$,立即得到$r(A)=r(A^HA)=r(AA^HA)=r(A^HAA^HA)=\cdots $,故命题成立.
+\end{proof}
+\subsection{秩不等式}
+\subsection{Schur补及其推广}
+\subsubsection{习题7}
+\begin{qqq}
+    若$A$是可逆方阵,则$A+BC$是可逆方阵当且仅当$I+CA^{-1}B$是可逆方阵.
+\end{qqq}
+\begin{aaa}
+\begin{itemize}
+    \item [充分性]\begin{proof}
+    恒等变形$$(A+BC)A^{-1}B=B+BCA^{-1}B=B(I+CA^{-1}B).$$
+    故$$A^{-1}B=C(A+BC)^{-1}B(I+CA^{-1}B).$$
+    同时左乘$C$,得$$CA^{-1}B=C(A+BC)^{-1}B(I+CA^{-1}B).$$
+    因此\begin{align*}
+        I&=I+CA^{-1}B-CA^{-1}B\\
+        &=(I+CA^{-1}B)-C(A+BC)^{-1}B(I+CA^{-1}B)\\
+        &=(I-C(A+BC)^{-1}B)(I+CA^{-1}B).
+    \end{align*}
+    \end{proof}
+    \item [必要性]\begin{proof}
+        还是由恒等变形可以得到$$(A+BC)A^{-1}B(I+CA^{-1}B)^{-1}=B.$$
+        因此同时右乘$C$得$$(A+BC)A^{-1}B(I+CA^{-1}B)^{-1}C=BC.$$
+        因此\begin{align*}
+            I&=AA^{-1}\\
+            &=(A+BC-BC)A^{-1}\\
+            &=((A+BC)-(A+BC)A^{-1}B(I+CA^{-1}B)^{-1}C)A^{-1}\\
+            &=(A+BC)(I-A^{-1}B(I+CA^{-1}B)^{-1}C)A^{-1}\\
+            &=(A+BC)(A^{-1}-A^{-1}B(I+CA^{-1}B)^{-1}CA^{-1})
+        \end{align*}
+    \end{proof}
+\end{itemize}
+\end{aaa}
+\subsection{初等变换与秩}
+\subsubsection{习题9}
+\begin{qqq}
+    证明$r(AD-BC)\leq r(A-B)+r(C-D).$此处$A,B\in \mathbb{F}^{m\times n},$以及$C,D\in \mathbb{F}^{n\times l}$.
+\end{qqq}
+\begin{proof}
+    \begin{align*}
+        r(AD-BC)&=r(AD-BD+BD=BC)\\
+        &=r((A-B)D+B(C-D))\\
+        &\leq r((A-B)D)+r(B(C-D))\\
+        &\leq r(A-B)+r(C-D).
+    \end{align*}
+\end{proof}
+\subsubsection{习题10}
+\begin{qqq}
+    若$A^2=A$且$B^2=B$,则$r(A-B)=r(A-AB)+r(B-AB)$.
+\end{qqq}
+\begin{aaa}
+    \begin{itemize}
+        \item [一方面,]考虑到$A(A-B)B=O$,因此$$0=r(A(A-B)B)\geq r(A(A-B))+r((A-B)B)-r(A-B).$$得到$$r(A-B)\geq r(A-AB)+r(B-AB).$$
+        \item [另一方面]考虑到$A-B=A(A-B)-(B-A)B$,\\因此$$r(A-B)=r(A(A-B)-(B-A)B)\leq r(A(A-B))+r((B-A)B)= r(A-AB)+r(B-AB)$$
+    \end{itemize}
+    所以$(A-B)=r(A-AB)+r(B-AB)$.
+\end{aaa}
+
+
+
+\end{document}

@@ -1,0 +1,383 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\definecolor{qing}{RGB}{235,243,250} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=qing, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=2pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{qing}
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+
+\title{第7周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.\\
+Ex 3.的推广, Ex 5.的第2题不会
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{Ex 1.}
+\begin{qqq}
+    直接写出以下矩阵的行列式,或简要说明其行列式的求解方式.
+\begin{qing}
+    $\lambda\in \mathbb{F}$是给定的常数,$A\in \mathbb{F}^{n\times n}$是矩阵.
+\end{qing}
+\begin{enumerate}
+    \item 置换矩阵.
+    \item 初等变换矩阵$D_i^j,T_{j,i}^\lambda$以及$S_{i,j}$.
+    \item 若$A$是对角矩阵,求$\op{det}A$.
+    \item 若$A$是上三角矩阵,求$\op{det}A$.
+    \item 若$A=\begin{pmatrix}X&O\\Y&Z \end{pmatrix},$其中$X$与$Z$都是方阵.求$\op{det}A$.
+    \item $A^{-1}$(若存在)的行列式.
+    \item 方阵乘积的行列式.
+    \item 若$\op{rank}(A)<n$,求$\op{det}A$.
+    \item $\lambda A$的行列式.
+    \item $A^T$的行列式.
+    \item 将$A$顺时针旋转$\pi /2$后的行列式.
+    \item $f$是$\mathbb{F}$上的多项式,求$\op{det}(f(A))$.
+    \item 求$\op{det(e^A)}$.
+\end{enumerate}
+\end{qqq}
+\begin{aaa}
+    \begin{enumerate}
+        \item 分别记第$i$行中$1$出现的位置为$a_i,$将$(a_1,a_2,\ldots,a_i)$相邻两项两两交换最终得到$(1,2,\ldots,n)$需要的次数为$s_n$,那么这个矩阵的行列式为$(-1)^{s_n}$.
+        \item $\op{det}(D^\lambda_i)=\lambda,\quad \op{det}(T^\lambda_{j,i})=1,\quad S_{i,j}=-1.$
+        \item 主对角线元素的乘积.
+        \item 主对角线元素的乘积.
+        \item $\op{det}(A)=\op{det}(X)\op{det}(Y)$.
+        \item $\op{det}(A^{-1})=1/{\op{det}(A)}$.
+        \item 方阵乘积的行列式等于各方阵行列式的乘积.
+        \item $\op{det}(A)=0$.
+        \item $\op{det}(\lambda A)=\lambda^n \op{det}(A)$.
+        \item $\op{det}(A^T)=\op{det}(A)$.
+        \item $(-1)^{n(n-1)/2}\op{det}(A)$.
+        \item 记$A$的特征根分别为$\lambda_1,\ldots,\lambda_n$,那么$\op{det}(f(A))=\prod\limits _{i=1}^n f(\lambda_i)$.
+        \item $\op{det}(e^A)=e^{\op{tr}(A)}.$
+    \end{enumerate}
+\end{aaa}
+\[{}\]
+\[{}\]
+\[{}\]
+\section{Ex 3}
+\begin{qqq}
+    使用矩阵的初等变换证明,对任意$A\in \mathbb{F}^{n\times n},B\in \mathbb{F}^{n\times n}$,以及$\lambda \in \mathbb{F}$.总有
+    \begin{equation}
+        \lambda^n \cdot \op{det}(\lambda I_m-AB)=\lambda^m \cdot \det (\lambda I_n-BA).
+    \end{equation}
+    \begin{qing}
+        推广:对方阵$A,B$与$C$(未必可逆),总有$\det(A+B+ABC)=\det(A+B+BCA)$.
+    \end{qing}
+\end{qqq}
+\begin{aaa}
+    \begin{itemize}
+        \item [Case 1.]若$\lambda=0$,等式两边均为0.成立.
+        \item [Case 2.]若$\lambda \neq 0,$令$A=\lambda M$,则只需证明$\det(I_m-MB)=\det(I_n-BM)$.\\考虑分块矩阵$\begin{pmatrix}
+            I&M\\B&I
+        \end{pmatrix}$的行列式.
+        \[\begin{vmatrix}
+            I&M\\B&I
+        \end{vmatrix}=\begin{vmatrix}
+            I&M\\O&I-BM
+        \end{vmatrix}=\det(I)\det(I-BM)=\det(I-BM).\]
+        \[\begin{vmatrix}
+            I&M\\B&I
+        \end{vmatrix}=\begin{vmatrix}
+            I-MB&O\\B&I
+        \end{vmatrix}=\det(I-MB)\det(I)=\det(I-MB).\]
+        证毕!
+    \end{itemize}
+\end{aaa}
+
+
+\newpage
+
+
+\section{Ex 4.}
+\begin{qqq}
+    求以下矩阵行列式.
+    \begin{equation}
+        \begin{pmatrix}
+            0& & & &a_n\\1&0& & &a_{n-1}\\ & 1&\ddots& &\vdots\\ & &\ddots&0&a_2\\ & & &1&a_1
+        \end{pmatrix}
+    \end{equation}
+\end{qqq}
+
+\begin{aaa}
+    分别将第$1$列的$-a_n$倍,第$2$列的$-a_{n-1}$倍,$\ldots$,第$(n-1)$列的$-a_1$倍加到第$n$列,得到\[\begin{pmatrix}
+        0& & & &a_n\\1&0& & &0\\ & 1&\ddots& &\vdots\\ & &\ddots&0&0\\ & & &1&0
+    \end{pmatrix}.\]
+    因此
+    \[\begin{vmatrix}
+        0& & & &a_n\\1&0& & &a_{n-1}\\ & 1&\ddots& &\vdots\\ & &\ddots&0&a_2\\ & & &1&a_1
+    \end{vmatrix}=\begin{vmatrix} 0& & & &a_n\\1&0& & &0\\ & 1&\ddots& &\vdots\\ & &\ddots&0&0\\ & & &1&0\end{vmatrix}=(-1)^{n+1}a_n\begin{vmatrix}1\\&1\\ &&\ddots\\&&&1\end{vmatrix}=(-1)^{n+1}a_n.\]
+\end{aaa}
+
+\newpage
+\section{Ex 5.}
+以下是三对角矩阵的行列式问题.
+\begin{qqq}
+    求以下三对角矩阵的行列式.
+    \begin{equation}
+        \begin{pmatrix}
+            a&b& & & \\c&a&b& & \\ & c&\ddots&\ddots& \\ & & \ddots &a & b\\ &&&c&a
+        \end{pmatrix}.
+    \end{equation}
+\end{qqq}
+\begin{aaa}
+    按照最后一行展开得到\[D_{n}=aD_{n-1}-bcD_{n-2}.\]
+    其中$D_1=a,\quad D_2=a^2-bc.$\\
+    记方程$x^2-ax+bc=0$的根为$\alpha,\beta.$\\
+    若$a^2-4bc\neq 0$,$\alpha\neq \beta$$,D_n=A\alpha^n+B\beta^n$,其中$A,B$由带入$D_1,D_2$带入得到.\\
+    若$a^2-4bc= 0$,$\alpha= \beta$$,D_n=(A+Bn)\alpha^n$,其中$A,B$由带入$D_1,D_2$带入得到.
+\end{aaa}
+\[{}\]
+\begin{qqq}
+    证明
+    \begin{equation}
+        \det\begin{pmatrix}
+            a_1&1\\-1&a_2&1\\ &-1&\ddots&\ddots&\\ &&\ddots&a_{n-1}&1\\&&&-1&a_n
+        \end{pmatrix}=
+        a_1+\frac{1}{a_2+\frac{1}{\ddots{+\frac{1}{a_{n-1}+\frac{1}{a_n}}}}}
+    \end{equation}
+\end{qqq}
+\begin{aaa}
+    按最后一列展开,得到$D_n=a_nD_{n-1}+D_{n-2}$.\quad $D_1=a_1,D_2=a_1a_2+1.$\\
+    不会了.为什么$n=2$和$n=3$我算出来只有分子一样,没有分母.
+\end{aaa}
+
+\[{}\]
+\begin{qqq}
+    证明
+    \begin{equation}
+        \det\begin{pmatrix}
+            a_1&b_1\\c_1&a_2&b_2\\ &c_2&\ddots&\ddots&\\ &&\ddots&a_{n-1}&b_{n-1}\\&&&c_{n-1}&a_n
+        \end{pmatrix}=\begin{pmatrix}
+            a_1&b_1
+        \end{pmatrix}\begin{pmatrix}
+            a_2&b_2\\-c_1&0
+        \end{pmatrix}\cdots\begin{pmatrix}
+            a_{n-1}&b_{n-1}\\-c_{n-2}&0
+        \end{pmatrix}\begin{pmatrix}
+            a_n\\-c_{n-1}
+        \end{pmatrix}
+    \end{equation}
+\end{qqq}
+\begin{aaa}
+    按最后一列展开,得到$D_n=a_nD_{n-1}-b_{n-1}c_{n-1}D_{n-2}$.\quad $D_1=a_1,D_2=a_1a_2-b_1c_1.$\\
+    可以定义$D_0=1$\\
+    即\[\begin{pmatrix}
+        D_n&b_nD_{n-1}
+    \end{pmatrix}=
+    \begin{pmatrix}
+        D_{n-1}&b_{n-1}D_{n-2}
+    \end{pmatrix}
+    \begin{pmatrix}
+        a_n&b_n\\-c_{n-1}&0
+    \end{pmatrix}\]
+    因此\[\begin{pmatrix}
+        D_{n-1}&bD_{n-2}
+    \end{pmatrix}=
+    \begin{pmatrix}
+        D_1&b_1D_0
+    \end{pmatrix}\begin{pmatrix}
+        a_2&b_2\\-c_2&0
+    \end{pmatrix}\cdots\begin{pmatrix}
+        a_{n-1}&b_{n-1}\\-c_{n-2}&0
+    \end{pmatrix}.\]
+    结合$D_n=a_nD_{n-1}-b_{n-1}c_{n-1}D_{n-2}$及$D_0,D_1$即证!
+\end{aaa}
+
+\[{}\]
+\[{}\]
+\section{Ex 8.}
+\begin{qqq}
+    取$(a_i)_{i \geq 1}$是周期为$n$的$\mathbb{F}$中的数列,定义$n \times n$矩阵的第$(i,j)$项为$a_{i+j-1}$.计算这一循环矩阵的行列式.
+\end{qqq}
+\begin{aaa}
+    考虑矩阵\[M=\begin{pmatrix}
+        &1\\&&1\\&&&\ddots\\&&&&1\\1
+    \end{pmatrix}\]
+    满足$M^{n}=I$. 定义$M^0=I$.\\
+    定义矩阵$A$是题述循环矩阵. 那么$A=\sum \limits _{i=0}^{n-1}a_{i+1}M^{i}.$ 
+    记$f(x)=\sum\limits_{i=0}^{n-1}a_{i+1}M^i.$ 则$A=f(M).$\\
+    设矩阵$M$的特征值是$\lambda$,  那么$M^n$特征值就是$I$的特征值, 也即$\lambda^n=1$ ,因此矩阵$M$的特征值 为$n$个$n$次单位根.\\
+    因此\[\det(A)=\det(f(M))=\prod_{i=0}^{n-1}f(w^i).\]
+    其中$w$是$n$次单位根,即$\exp{(\frac{2\pi}{n}\op{i})}.$
+\end{aaa}
+
+
+\section{Ex 9.}
+\begin{qqq}
+    给定常数$(c_1,c_2,\ldots,c_n)$. 试计算$(c_{\min(i,j)})\in \mathbb{F}^{n\times n}$的行列式. 
+
+\end{qqq}
+\begin{aaa}
+    将每一行加上前一行得-1倍,即得上三角矩阵,容易求得行列式.
+    \[
+    \begin{vmatrix}
+        c_1&c_1&c_1&\cdots&c_1\\
+        c_1&c_2&c_2&\cdots&c_2\\
+        c_1&c_2&c_3&\cdots&c_3\\
+        \vdots&\vdots&\vdots&\ddots&\vdots\\
+        c_1&c_2&c_3&\cdots&c_n
+    \end{vmatrix}
+    =
+    \begin{vmatrix}
+        c_1&c_1&c_1&\cdots&c_1\\
+        0&c_2-c_1&c_2-c_1&\cdots&c_2-c_1\\
+        0&0&c_3-c_2&\cdots&c_3-c_2\\
+        \vdots&\vdots&\vdots&\ddots&\vdots\\
+        0&0&0&\cdots&c_n-c_{n-1}
+    \end{vmatrix}
+    =c_1\prod_{i=1}^{n-1}(c_{i+1}-c_i).
+    \]
+\end{aaa}
+
+
+
+
+
+
+
+
+
+\end{document}

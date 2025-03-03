@@ -1,0 +1,236 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{定义}
+\newtheorem*{proposition}{命题}
+\newtheorem*{theorem}{定理}
+\newtheorem*{notation}{记号}
+\newtheorem*{example}{例子}
+\newtheorem*{exercise}{习题}
+\theoremstyle{remark}
+\newtheorem*{remark}{备注}
+\newtheorem*{lemma}{引理}
+\newtheorem*{corollary}{推论}
+
+
+
+\title{第二周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{Problem Set for 24-Feb-2025}
+\subsection{Problem 1}
+Let $\FF$ be any field , and let $\{u_i\}_{i=1}^n$ and $\{v_j\}_{j=1}^m$  be bases of $U$ and $V$,
+respectively . Define $\op{Hom}_{\FF}(U,V)$ as the set of $\FF$ -linear maps from $U$ to $V$ .
+\begin{enumerate}
+    \item Endow $\op{Hom}_{\FF}(U,V)$ with the structure of a vector space over $\FF$.
+    \item Determine the dimension of $\op{Hom}_{\FF}(U,V)$ and provide a basis for it.
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+        \item 由于$\op{Hom}_{\FF}(U,V)$是从$U$到$V$的线性映射的集合, 因此我们可以定义加法和数乘如下:
+        \begin{align*}
+            (f+g)(u) &= f(u) + g(u)\\
+            (\lambda f)(u) &= \lambda f(u)
+        \end{align*}
+        其中$f,g\in \op{Hom}_{\FF}(U,V)$, $\lambda\in \FF$, $u\in U$.
+        \item 由于$\{u_i\}_{i=1}^n$和$\{v_j\}_{j=1}^m$分别是$U$和$V$的基, 因此我们可以定义一个线性映射$f_{ij}$如下:
+        \begin{align*}
+            f_{ij}(u_k) = v_j\delta_{ik}
+        \end{align*}
+        显然, $\{f_{ij}\}_{i=1,j=1}^{n,m}$是$\op{Hom}_{\FF}(U,V)$的一个基. 由此我们可以得到$\op{Hom}_{\FF}(U,V)$的维数为$nm$.
+    \end{enumerate}
+\end{aaa}
+\subsection{Problem 2}
+(Blank-Filling Question)Throughout , $\FF$ is an arbitrary field, and $\{u_i\}_{i=1}^l$ , $\{b_j\}_{j=1}^m$ , and $\{c_k\}_{k=1}^n$ are bases of $U , V$ and $W$ , respectly.
+Carefully endow the following spaces with $\FF$ -linear structures. and write down their dimensions along with the corrseponding distinguished bases.
+\begin{enumerate}
+    \item $U \oplus V$ as subspace.
+    \item $U \times V$ as the usual Cartesian product.
+    \item $\op{Hom}_{\FF}(U,V)$ as the set of linear maps.
+    \item $\op{Hom}_{\op{Sets}}(U,V)$ as the set of maps.
+    \item $\op{Hom}_{\FF}(U\times V, W)$, where $U \times V$ is defined a priori.
+    \item $\op{Bil}_{\FF}(U,VlW)$, the set of bilinear maps from $U $ and $V$ to $W$.
+    \item $\op{Hom}_{\FF}(U,\op{Hom}_{\FF}(V,W))$,also known as the  currying of bilinear maps.
+\end{enumerate} 
+\begin{aaa}
+    \begin{enumerate}
+        \item $U\oplus V$是$U$和$V$的直和,\[(u_1,v_1)+(u_2,v_2)=(u_1+u_2,v_1+v_2),\qquad \lambda(u_1,v_1)=(\lambda u_1,\lambda v_1)\]维数为$l+m$, 基为$\{u_i\}_{i=1}^l\cup\{v_j\}_{j=1}^m$.
+        \item $U\times V$是$U$和$V$的笛卡尔积, 维数为$l+m$, 基为$\{(u_i,0)\}_{i=1}^l\cup\{(0,v_j)\}_{j=1}^m$.
+        \item $\op{Hom}_{\FF}(U,V)$是从$U$到$V$的线性映射的集合, 维数为$lm$, 基为$\{f_{ij}\}_{i=1,j=1}^{l,m}$.
+        \item $\op{Hom}_{\op{Sets}}(V,W)$是从$U$到$V$的映射的集合, 维数为$m^l$, 基为$\{g_{i}\}_{i=1}^{l}$.
+        \item $\op{Hom}_{\FF}(U\times V, W)$是从$U\times V$到$W$的线性映射的集合, 维数为$(l+m)n$, 基为$\{h_{ijk}\}_{i=1,k=1}^{l,n} \cup \{h_{ijk}\}_{j=1,k=1}^{m,n}$.
+        \item $\op{Bil}_{\FF }(U,V;W)$是从$U$和$V$到$W$的双线性映射的集合, 维数为$lmn$, 基为$\{f_{ijk}\}_{i=1,j=1,k=1}^{l,m,n}$.
+        \item $\op{Hom}_{\FF}(U,\op{Hom}_{\FF}(V,W))$是从$U$到$\op{Hom}_{\FF}(V,W)$的线性映射的集合, 维数为$lmn$, 基为$\{g_{ijk}\}_{i=1,j=1,k=1}^{l,m,n}$.
+    \end{enumerate}
+\end{aaa}
+\section{Problem Set for 24-Feb-2025}
+\subsection{Exercise 1.1}
+Let $P_n:= \{f(x) \in \FF[x] \mid \op{deg} f(x) <n\}$. Pick $a_1,a_2,\ldots ,a_n \in \FF$ such that $a_i \neq a_j$ for any $i\neq j$. Show that \[f_j(x):= \prod_{i\neq j}(x-a_i)(1 \leq i \leq n)\]from a basis of $P_n$.
+\begin{aaa}
+    Lagrange 插值公式告诉我们, 对于任意的$f(x)\in P_n$, 我们有\[f(x) = \sum_{i=1}^n f(a_i)\prod_{j\neq i}\frac{x-a_j}{a_i-a_j}=\sum_{i=1}^{n}\frac{f(a_i)f_j(x)}{\prod_{j\neq i}(a_i-a_j)}\]
+\end{aaa}
+\subsection{Exercise 4.1}
+Assume $f(x)=x^3 +px+q \in \ZZ[x]$ is irreducible and $\alpha \in \CC $ is a root of $f$.
+\begin{enumerate}
+    \item Show that $\QQ[\alpha]:=\{g(\alpha)\mid g(x)\in \QQ[x]\}$ is a linear space over $\QQ$ and $1,\alpha,\alpha^2$ from a basis.
+    \item Prove that $\phi:\beta \mapsto f'(\alpha)\beta$ gives a linear map on $\QQ[\alpha]$ and find its matrix under $1,\alpha,\alpha^2$.
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+        \item $0 \in \QQ[\alpha],(f+g)(\alpha)=f(\alpha)+g(\alpha),(\lambda f)(\alpha)=\lambda f(\alpha)$\\For $\alpha^n(n \geq 3)$,利用等式$\alpha^3=-p\alpha-q$反复代换可以表示成$1,\alpha,\alpha^2$的线性组合.\\
+        \item 由于$\phi(\beta)=\beta f'(\alpha)$, 因此我们有\[\phi(1)=f'(\alpha),\quad \phi(\alpha)=\alpha f'(\alpha),\quad \phi(\alpha^2)=\alpha^2 f'(\alpha)\]因此我们有\[\begin{pmatrix}f'(\alpha)\\ \alpha f'(\alpha)\\ \alpha^2 f'(\alpha)\end{pmatrix}=\begin{pmatrix}0&1&0\\0&0&1\\-q&-p&-3\end{pmatrix}\begin{pmatrix}1\\ \alpha\\ \alpha^2\end{pmatrix}\]
+    \end{enumerate}
+\end{aaa}
+\subsection{Exercise 4.3}
+Prove that if $f,g\in \ZZ[x]$ are primitive, then so is $fg$.
+\begin{aaa}
+    Let $f(x)=\sum_{i=0}^n a_ix^i$, $g(x)=\sum_{i=0}^m b_ix^i$, then we have $fg(x)=\sum_{i=0}^{n+m}c_ix^i$, where $c_i=\sum_{j=0}^i a_jb_{i-j}$. \\
+    Suppose $fg$ is not primitive, then there exists a prime $p$ such that $p|c_i$ for all $i$. Let $a_i$ is the smallest index such that $p\nmid a_i$, $b_j$ is the smallest index such that $p\nmid b_j$, so $c_{i+j}$ is not divide by $p$.
+\end{aaa}
+\end{document}

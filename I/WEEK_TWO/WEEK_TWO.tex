@@ -1,0 +1,291 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\title{高等代数 (荣誉) I 作业模板}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{习题课相关}
+
+\subsection{习题课相关}
+
+
+\begin{qqq}
+    State the definition of a number field,and prove that number fields are $\mathbb{Q}$-linear spaces.
+\end{qqq}
+\begin{aaa}
+    设P是由一些复数组成的集合,其中包括0与1,如果P中任意两个数的和,差,积,商(除数不为0)仍是P中的数,则称P为一个数域.
+    \newline
+    可以将复数域看作在有理数域$\mathbb{Q}$上的线性空间,其维数为无穷.
+    任取$\mathbb{C}$中的元素c,可以表示$c=k_1c_1+k_2c_2+...+k_nc_n+...\quad ,k_i\in \mathbb{Q},c_i \in \mathbb{C}$
+
+\end{aaa}
+\begin{qqq}
+    Prove that the 3-demensional $\mathbb{Q}$-linear space $V$ is a number field.
+    $$ V=\{ a+b \cdot 2^{1/3} +c \cdot 2 ^ {2/3} : a,b,c \in \mathbb{Q} \}$$   
+\end{qqq}
+\begin{proof}
+    首先有零元和单位元；
+    \newline
+    验证加减封闭:\qquad $\forall a,b,c,d,e,f \in \mathbb{Q}$,
+    \begin{align*}
+    &(a+b \cdot 2^{1/3} +c \cdot 2 ^ {2/3})\pm c+d \cdot 2^{1/3} +e \cdot 2 ^ {2/3}\\
+    =&(a\pm d)+(b\pm e) \cdot 2^{1/3} +(c\pm f) \cdot 2 ^ {2/3}\\
+    \in &V.
+    \end{align*}
+    验证乘法封闭:\qquad $\forall a,b,c,d,e,f \in \mathbb{Q}$,
+    \begin{align*}
+        &(a+b \cdot 2^{1/3} +c \cdot 2 ^ {2/3})(d+e \cdot 2^{1/3} +f \cdot 2 ^ {2/3})\\
+        =&(ad+2bf+2ce)+(bd+ae+2cf) \cdot 2^{1/3} +(cd+af+be) \cdot 2 ^ {2/3}\\
+        \in &V.
+    \end{align*}
+    验证除法封闭:\qquad  $\forall a,b,c,d,e,f \in \mathbb{Q}$且$d,e,f$不全为0(记$d^2-2ef,2f^2-de,e^2-af$分别为$D,E,F$),
+    \begin{align*}
+        &\frac{(a+b \cdot 2^{1/3} +c \cdot 2 ^ {2/3})}{(d+e \cdot 2^{1/3} +f \cdot 2 ^ {2/3})}\\
+        =&\frac{(a+b \cdot 2^{1/3} +c \cdot 2 ^ {2/3})((d^2-2ef)+(2f^2-de) \cdot 2^{1/3} +(e^2-af) \cdot 2 ^ {2/3})}{(d+e \cdot 2^{1/3} +f \cdot 2 ^ {2/3})((d^2-2ef)+(2f^2-de) \cdot 2^{1/3} +(e^2-af) \cdot 2 ^ {2/3})}\\
+        =&\frac{(aD+2bF+2cE)+(bD+aE+2cF) \cdot 2^{1/3} +(cD+aF+bE) \cdot 2 ^ {2/3}}{d^3+2e^3+4f^3-6def}\\
+        =&\frac{aD+2bF+2cE}{d^3+2e^3+4f^3-6def}+\frac{bD+aE+2cF}{d^3+2e^3+4f^3-6def} \cdot 2^{1/3}+\frac{cD+aF+bE}{d^3+2e^3+4f^3-6def} \cdot 2 ^ {2/3}\\
+        \in & V
+    \end{align*}
+    故$V$ is a number field.
+\end{proof}
+\begin{qqq}
+    Find a field $K$ such that $\mathbb{C}$ is a $\mathbf{proper}$ subfield of $K$.
+\end{qqq}
+\begin{aaa}
+    $K$为有理函数域.
+\end{aaa}
+\begin{qqq}
+    Prove that ($1,e^x,e^{2x},...,e^{2024x}$)are linearly independent real-valued functions.
+    \newline
+    $\bullet$ Hint:take derivatives,and use the fact $\textbf{Vandermonde matrix is invertible}$ as a shortcut.
+\end{qqq}
+\begin{proof}
+    考虑这样的$2024\times 2024$的矩阵.
+    $$
+    \begin{bmatrix*}
+        1 & e^{x_1} & e^{2x_1} & \cdots & e^{(n-1)x_1} \\
+        1 & e^{x_2} & e^{2x_2} & \cdots & e^{(n-1)x_2} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & e^{x_n} & e^{2x_n} & \cdots & e^{(n-1)x_n}\\
+    \end{bmatrix*}
+    $$
+    他是一个范德蒙矩阵.只要$x_i \neq x_j, \forall 1 \leq i < j \leq n$,那么这个矩阵可逆,也即矩阵的列向量线性无关.而$x_i$可取遍全体实数.故可以得到,$(1,e^x,e^{2x},\cdots ,e^{2024x})$是线性无关的.
+\end{proof}
+\begin{qqq}
+    find $n$ such that $(\sin \frac{\pi}{2n},\sin \frac{2\pi}{2n},\cdots ,\sin \frac{(n-1)\pi}{2n})$ are linearly dependent (over $\mathbb{Q}$).
+\end{qqq}
+\begin{aaa}
+    skip
+\end{aaa}
+
+
+\section{线性子空间}
+\subsection{线性子空间}
+\begin{qqq}
+    证明一下两个句子包含了相同的子集.\newline
+    1.既包含$U_1$,有包含$U_2$的最小线性子空间.\newline
+    2.集合$\{ \sum u_1+u_2 | u_1 \in U_1 ,u_2 \in U_2 \}$\newline
+    这一子集是线性空间,记作$U_1+U_2$ 
+\end{qqq}
+\begin{proof}
+    一方面,记$U$是包含$U_1,U_2$的最小线性子空间,那么任取$U_1,U_2$中的元素$u_1,u_2$,$u_1+u_2 \in U$.那么$U \subseteq\{ \sum u_1+u_2|u_1 \in U_1,u_2 \in U_2 \}$;\newline
+    另一方面,记$U'=\{ \sum u_1+u_2|  u_1 \in U_1 ,u_2 \in U_2\}$,任取$U'$中的元素$u'$,他能用$U_1,U_2$中的元素线性表示,也就是$\forall u' \in U,u' \in U$,即$U' \subseteq U$;\newline
+    故$U=U'$.
+\end{proof}
+\begin{qqq}
+    类似的,请以两种观点定义$U_1\cap U_2$.
+\end{qqq}
+\begin{aaa}
+    1.同时是$U_1,U_2$的线性子空间的最大线性子空间.\newline
+    2.集合$\{ u:u \in U_1 \wedge u \in U_2\}$
+\end{aaa}
+\begin{qqq}
+
+\end{qqq}
+\begin{qqq}
+    直接写出$\cap $满足的交换律.
+\end{qqq}
+\begin{aaa}
+    交换律.$\quad U_1 \cap U_2 = U_2\cap U_1$ \newline
+    结合律.$\quad (U_1 \cap U_2)\cap U_3 = U_1 \cap (U_2 \cap U_3)$
+\end{aaa}
+\begin{qqq}
+    写出分配律的反例.此处应化为什么?
+\end{qqq}
+\begin{aaa}
+    取$U_1,U_2,U_3$是平面上三条过同一个点的直线,则等式左边表示$U_3$代表的直线,右边表示三条直线的交点,左边与右边不等.\newline
+    $.\qquad \supset$ 
+\end{aaa}
+\begin{qqq}
+
+\end{qqq}
+\begin{aaa}
+    $U_1+(U_2 \cap U_3)\subseteq (U_1 + U_2)\cap (U_1 + U_3)$. 
+\end{aaa}
+\begin{qqq}
+    证明线性子空间的modular lattice结构,具体而言,若$U_-$是$U_+$的子空间,则
+    $$(U_-+U_0)\cap U_+=U_-+(U_0 \cap U_+)$$.
+\end{qqq}
+\begin{aaa}
+    $\forall u_1+u_2 \in ((U_-+U_0)\cap U_+)$,其中$u_1\in U_-,u_2 \in U_0,\\$
+    则$$u_1+u_2\in U_+$$\newline
+    又$$u_1 \in u_- \subseteq U_+$$\newline
+    则$$u_2 \in U$$\newline
+    于是有$$u_1 \in U_- \cap U_+ ,u_2 \in U_0 \cap U_+$$\newline
+    既有$$u_1+u_2\in (U_- \cap U_+)+(U_0 \cap U_+)$$\newline
+    所以有$$(U_-+U_0)\cap U_+=U_-+(U_0 \cap U_+)$$
+\end{aaa}
+\section{课堂思考题}
+\subsection{课堂思考题}
+\begin{qqq}
+    To prove that any subset of n+1 vectors of $\mathbb{F}^n$ is linearly dependent.
+\end{qqq}
+\begin{proof}
+    case1.若前n个向量中有线性相关,则n+1个也线性相关.\newline
+    case2.若前n个向量线性无关,则这n个向量可以看作这个向量空间中的基$v_1,\cdots ,v_n$.$\mathbb{F}^n=span(v_1,\cdots ,v_n)$.由于第n+1个向量是$\mathbb{F}^n$中的元素,那么他就能被这n个元素线性表示.\newline
+    故命题得证.
+\end{proof}
+\begin{qqq}
+    数域(无限域)上,线性方程组解的个数可能有:0个,1个,无限个.那种情况概率大?
+\end{qqq}
+\begin{aaa}
+    1.$\| A \|<1$,则$E-A$可逆,$$E-A=\sum_{k=0}^{\infty}A^k$$.\newline
+    $$\|\sum_{k=0}^{\infty}A^k\|\leq \sum_{k=0}^{\infty}\|A\|<+\infty$$\newline
+    $$(E-A)\sum_{k=0}^{\infty}A=E$$\newline
+    2.$A$可逆,如果$B\in N_\delta (A).\delta =\frac{1}{\|A^{-1}\|}$,则$B$可逆.\newline
+    $$\|E-A^{-1}B\|=\|A^{-1}(A-B)\|\leq \|A^{-1}\|\|A-B\|$$.\newline
+    $$B\in N_\delta (A),\|B-A\|\leq \frac{1}{\|A^{-1}\|} $$\newline
+    $$\|E-A^{-1}B\|<1.$$\newline
+    由1.$E-(E-A^{-1}B)$可逆,得$B$可逆.
+\end{aaa}
+\begin{qqq}
+    用Dedekind分割证明$\mathbb{R}$满足加法交换律.
+\end{qqq}
+\begin{proof}
+    由于有理数满足加法的交换律,在定义了加法运算之后我们就有$A+B=B+A$,
+\end{proof}
+\end{document}

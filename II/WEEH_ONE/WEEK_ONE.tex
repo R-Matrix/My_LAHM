@@ -1,0 +1,265 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{定义}
+\newtheorem*{proposition}{命题}
+\newtheorem*{theorem}{定理}
+\newtheorem*{notation}{记号}
+\newtheorem*{example}{例子}
+\newtheorem*{exercise}{习题}
+\theoremstyle{remark}
+\newtheorem*{remark}{备注}
+\newtheorem*{lemma}{引理}
+\newtheorem*{corollary}{推论}
+
+
+
+\title{第一周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{Problem Set for 17-Feb-2025}
+\subsection{Problem 1}
+Let $\FF$ be an arbitrary field, and let $\FF[x]$ denote the polynomial ring(algebra) in one indeterminate. For the sake
+of convention, assume that $x^0=1$ .
+\begin{qqq}
+    Demonastrate that $|FF[x]$ forms a vactor space over $\FF$ with the basis $\{x^n\}_{n\geq 0}$.
+\end{qqq}
+\begin{aaa}
+    $\forall f,g,h \in \FF[x]$ , $f+g = g+f $ and $(f+g)+h=f+(g+h)$.\\
+    $\forall f \in \FF[x], a.b\in \FF , a(bf)=(ab) f$ and $(a+b)f=af+bf$.\\
+    $\forall f,g \in \FF[x],a\in \FF, a(f+g)=af+ag$.\\
+    $\forall f \in \FF[x], 1\cdot f=f$.\\
+    $\forall f \in \FF[x], 0\cdot f=0$.\\
+    $\forall f \in \FF[x], \exists g \in \FF[x]$ such that $f+g=0$.\\
+    $\forall f \in \FF[x], \exists a_i \in \FF$ such that $f=\sum_{i=0}^{n}a_i x^i$.\\
+\end{aaa}
+\begin{qqq}
+    Determine  whether  the  set $\{x^n+2\cdot x^{n-1}\}_{n \geq 1}$ constitutes  a  basis  for $\FF[x]$ ,and provide your reasoning.
+\end{qqq}
+\begin{aaa}
+    no.\\
+    For example, 1 can not be expressed as a linear combination of $\{x^n+2\cdot x^{n-1}\}_{n \geq 1}$.
+\end{aaa}
+\begin{qqq}
+    Investigate whether the series $\op{e}^x=1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots$ belongs to $\FF[x]$.
+\end{qqq}
+\begin{aaa}
+    no.\\
+    For $f \in \FF[x]$,$f=\sum_{i=0}^{\infty}a_ix^i$, only a finite number of $a_i$ are non-zero.
+\end{aaa}
+\begin{qqq}
+    Is it posible to define a linear map $\mathcal{L}: \FF\left\langle x\right\rangle \rightarrow \FF$ such that $\mathcal{L}(f)=l(f)$ for any $f \in \FF[x]$ .
+\end{qqq}
+\begin{aaa}
+    yes.\\
+    $$\mathcal{L}(f)=\lim_{n \to infty}\sum_{i=0}^{n}a_i$$
+    if $f$ is a finate degree polynomial, higher degree terms are zero.
+\end{aaa}
+
+
+
+\section{Problem Set for 20-Feb-2025}
+\subsection{Problem 1}
+Find two linear maps\[\alpha,\beta: \FF[x]\to \FF[x],\]
+such that \[\alpha(\beta(f))-\beta(\alpha(f))=f\]
+for any $f \in \FF[x]$,\\
+is it posible to find such $\alpha,\beta: V \to V$ when $V$ is of finite dimension?
+\begin{aaa}
+    \begin{enumerate}
+        \item Let $\alpha(f)=f'$ , $\beta(f) = xf.$
+        \item no.for finite $V$ ,$\alpha: V\to V$ can be represented by a matrix $A$ , $\beta: V\to V$ can be represented by a matrix $B$ , then $\alpha(\beta(f))-\beta(\alpha(f))=f$ is equivalent to $AB-BA=I$ , but $tr(AB-BA)=tr(AB)-tr(BA)=0\neq n$
+    \end{enumerate}
+\end{aaa}
+\subsection{Problem 2}
+$\op{Prove}$ the following:
+\begin{enumerate}
+    \item If $f$ is irreducible in $\ZZ[x]$,then it is also irreducible in $\QQ[x]$;\\
+    \item If $f$ is irreducible in $\RR[x]$,then it is also irreducible in $\QQ[x]$.
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+        \item If $f$ is reducible in $\QQ[x]$, then $f=gh$ , $g,h \in \QQ[x]$ , $g,h$ can be written as $g=\frac{a}{b}g_1$ , $h=\frac{c}{d}h_1$ , $a,b,c,d \in \ZZ$ , $g_1,h_1 \in \ZZ[x]$ , then $f=\frac{ac}{bd}g_1h_1$ , $f$ is reducible in $\ZZ[x]$.
+        \item If $f$ is reducible in $\QQ[x]$, then $f=gh$ , $g,h \in \QQ[x]$ , $g,h$ can be written as $g=\frac{a}{b}g_1$ , $h=\frac{c}{d}h_1$ , $a,b,c,d \in \RR$ , $g_1,h_1 \in \RR[x]$ , then $f=\frac{ac}{bd}g_1h_1$ , $f$ is reducible in $\RR[x]$.
+    \end{enumerate}
+\end{aaa}
+\subsection{Problem 3}
+\begin{enumerate}
+    \item Let $f \in \ZZ[x]$ be a monic polynomial of degree n. Denote the zaros of $f$ in $\CC$ by $(z_i)_{i=1}^n$. Show that, if there is existly one $z_i$ such that $|z_i| \geq 1$ and $f(0)\neq 0 $, then $f$ is irreducible in $\QQ[x]$.
+    \item Let $f \in \ZZ[x]$ be a polynomial such that $f(0)$ is a prime. DEnote the zeros of $f$ in $\CC$ by $(z_i)_{i=1}^n$. Show that, if $|z_i| >1$ for all $i$ , then $f$ is irreducible.
+    \item Let $f(x) = \sum_{k=0}^{n}a_k\cdot x^k\in \ZZ[x]$ be a polynomial with $f(0)$ prime. Suppose that $|a_0|>\sum_{k=1}^{n}|a_k|$. Show that $F$ is irreducible. 
+\end{enumerate}
+\begin{aaa}
+\begin{enumerate}
+    \item only prove $f$ is irreducible in $\ZZ[x]$.(Similarly hereinafter)\\
+    If $f$ is reducible in $\ZZ[x]$, then $f=gh$ , $g,h \in \ZZ[x]$ .Let the absolute value of all the zeros of $g$ in $\CC$ is less than 1, then $|g(0)|=|g(z_1)g(z_2)\cdots g(z_n)|<1$ , and $g(0) \in \ZZ$ , so $g(0)=0$ ,$f(0)=g(0)h(0)=0$.
+    \item If $f$ is reducible in $\ZZ[x]$, then $f=gh$ , $g,h \in \ZZ[x]$ .$|f(0)|=|g(0)||h(0)|$ and $|f(0)|$ is a prime. Let $|g(0)|=1$, so at least one of absolute value of zeros of $g$ is less than 1.
+    \item If exists $z\in \CC$ such that $f(z)=0$ and $|z| \leq 1$, then $|a_0|=|\sum_{i=1}^{n}a_iz^i|\leq \sum_{i=1}^n |a_i|$.
+\end{enumerate}
+\end{aaa}
+
+\subsection{Problem 4}
+\begin{enumerate}
+    \item Is there any irreducible $f(x)\in \ZZ[x]$ such that $f(f(x))$ is reducible?
+    \item Prove that $1+\prod_{k=1}^{2025}(x-k)^2$ is irreducible in $\ZZ[x]$;
+    \item Prove that $\prod_{k=1}^n(x-x_k)+1$is either irreducible in $\ZZ[x]$,or a perfect square;
+    \item $(f\in \ZZ[x])$Prove that if $f(x)=1$ has $\geq 4$ solutions in $\ZZ$ ,then $f(x)=-1$ has no solutions in $\ZZ$.
+    \item Prove that the partial sum $ (\op{e}^x)_{\op{deg}\leq n}$ is always irreducible in $\QQ[x]$.
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+        \item Noticed thst $f(x)=x^2+10x+17$ satisfies the condition.
+        \item can't solve
+        \item Let $f(x)=\prod_{k=1}^n(x-x_k)+1$ , $(x_1 <x_2 < \cdots < x_n)$. If $f$ is reducible , Let $f=gh$,$g,h \in \ZZ[x]$ and $0 <\op{deg}(g),\op{deg}(h) < n$, then $\forall k$ , $g(x_k)h(x_k)=1$ , so $g(x_k)=h(x_k)=1$ , so $g=h$. That means $f=g^2$.
+        \item If $f(x)=(x-a_1)(x-a_2)(x-a_3)(x-a_4)g(x)+1$, $a_1,a_2,a_3,a_4 \in \ZZ$ , $g \in \ZZ[x]$ , then $f(k)=-1 \Leftrightarrow (k-a_1)(k-a_2)(k-a_3)(k-a_4)g(k)=-2$ . so -2 must be divisible by $(k-a_1)(k-a_2)(k-a_3)(k-a_4)$ , but $-2$ is not divisible by 4.
+        \item Let $f(x)=1+\sum_{k=1}^{n}\frac{x^k}{k!}$ , $n!\cdot f(x)=x^n + nx^{n-1} + \cdots + \frac{n!}{2!}x^2 + n!x + n!=g(x)$ is irreducible in $\ZZ[x]$.\\
+            \href{https://www.zhihu.com/question/41438786?sort=created}{Schur}?
+        
+    \end{enumerate}
+\end{aaa}
+\end{document}

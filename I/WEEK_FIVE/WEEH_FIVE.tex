@@ -1,0 +1,444 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+
+\title{高等代数 (荣誉) I 作业模板}
+\author{请输入姓名}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{逆矩阵}
+\subsection{基础习题}
+\subsubsection{习题 1}
+\begin{qqq}
+    将$M$顺时针旋转$90°$,得$\widetilde{M} $.试描述由$M^{-1}$至$(\widetilde{M})^{-1}$的运动过程.
+\end{qqq}
+\begin{aaa}
+    设$M=\begin{pmatrix}
+        \alpha_1^T\\\vdots \\\alpha_n^T
+    \end{pmatrix}.\quad M^{-1}=\begin{pmatrix}
+        \beta_1&\cdots&\beta_n
+    \end{pmatrix}$
+    \[ (MM^{-1})_{i,j}=\alpha_I^T\beta_j=\beta_j^T\alpha_i=\delta_{ij}E_{ij}. \]
+    \[ \widetilde{M}=\begin{pmatrix}
+        \alpha_n&\alpha_{n-1}&\cdots&\alpha_1
+    \end{pmatrix}.  \]
+    \[\left(\begin{pmatrix}
+        \beta^T_n\\\beta^T_{n-1}\\\vdots\\\beta_1^T
+    \end{pmatrix}\begin{pmatrix}
+        \alpha_n&\alpha_{n-1}&\cdots&\alpha_1
+    \end{pmatrix}\right)_{ji}=\beta_j^T\alpha_i=\delta_{ji}E_{ji}=(MM^{-1})_{ij}.\]
+    所以由$M^{-1}$逆时针旋转$90°$可以得到$(\widetilde{M} )^{-1}$.
+
+\end{aaa}
+\subsubsection{习题 2}
+\begin{qqq}
+    计算以下矩阵的逆矩阵.
+    \begin{equation}
+        M=\begin{pmatrix}
+            1&-1& & & & \\-1&2&-1& & & \\ & -1&2&\ddots& & \\ & &\ddots&\ddots&-1& \\ & & &-1&2&-1\\ & & & &-1&2
+        \end{pmatrix}.
+    \end{equation}
+    备注.$M$并非高度对称的,其严格表述是
+    \begin{equation} M=2I-E_{1,1}-\sum_{1\leq i\neq j\leq n}E_{i,j}\end{equation}
+\end{qqq}
+\begin{aaa}
+
+\end{aaa}
+\subsubsection{习题 3}
+\begin{qqq}
+    计算以下矩阵的逆矩阵.
+    \begin{equation}
+        M=\begin{pmatrix}
+            \xi^{1\cdot 1}&\xi^{1\cdot 2}&\xi^{1\cdot 3}&\cdots&\xi^{1\cdot (n-1)}&\xi^{1\cdot n}\\
+            \xi^{2\cdot 1}&\xi^{2\cdot 2}&\xi^{2\cdot 3}&\cdots&\xi^{2\cdot (n-1)}&\xi^{1\cdot n}\\
+            \xi^{3\cdot 1}&\xi^{3\cdot 2}&\xi^{3\cdot 3}&\cdots&\xi^{3\cdot (n-1)}&\xi^{3\cdot n}\\
+            \vdots&\vdots&\vdots&\ddots&\vdots\\
+            \xi^{(n-1)\cdot 1}&\xi^{(n-1)\cdot 2}&\xi^{(n-1)\cdot 3}&\cdots&\xi^{(n-1)\cdot (n-1)}&\xi^{(n-1)\cdot n}\\
+            \xi^{n\cdot 1}&\xi^{n\cdot 2}&\xi^{n\cdot 3}&\cdots&\xi^{n\cdot (n-1)}&\xi^{n\cdot n}\\
+        \end{pmatrix}
+    \end{equation}
+    以上$\xi =e^{2\pi i/n}$是$n$次单位根.$n$即$M$的阶数.
+    备注.以上矩阵在 Fourier 分析中常见.若无思路,不妨先计算$M^2$.
+\end{qqq}
+\begin{aaa}
+    单位根满足如下性质.
+    \[ \sum_{k=1}^n \xi^{pk}=\begin{cases}
+        0,&n \nmid p\\
+        n,&n \mid p
+    \end{cases}  \]
+    \[ (M^2)_{ij}=\sum_{k=1}^n \xi^{(i+j)k}=\begin{cases}
+        0,&n \nmid (i+j)\\
+        n,&i+j=n\hspace{.2cm}or\hspace{.2cm}i+j=2n 
+    \end{cases}  \]
+    所以
+    \[ M^2=\sum_{i+j=n}E_{ij}+E_{nn}. \]
+    \[M^4=I.\]
+    因此$M\cdot M^3=I$,即$M^{-1}=M^3.$
+\end{aaa}
+\subsubsection{习题 4}
+\begin{qqq}
+    计算以下矩阵的逆矩阵.
+        \addtocounter{MaxMatrixCols}{15}
+        \begin{equation}
+            M=\begin{pmatrix}
+                0&1&1&\cdots&1&1&1&a&a&a&\cdots&a&a&a\\
+                1&0&1&\cdots&1&1&1&a&a&a&\cdots&a&a&a\\
+                1&1&0&\cdots&1&1&1&a&a&a&\cdots&a&a&a\\
+                \vdots&\vdots&\vdots&\ddots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots&\vdots\\
+                1&1&1&\cdots&0&1&1&a&a&a&\cdots&a&a&a\\
+                1&1&1&\cdots&1&0&1&a&a&a&\cdots&a&a&a\\
+                1&1&1&\cdots&1&1&0&a&a&a&\cdots&a&a&a\\
+                0&0&0&\cdots&0&0&0&0&1&1&\cdots&1&1&1\\
+                0&0&0&\cdots&0&0&0&1&0&1&\cdots&1&1&1\\
+                0&0&0&\cdots&0&0&0&1&1&0&\cdots&1&1&1\\
+                \vdots&\vdots&\vdots&\ddots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots&\vdots\\
+                0&0&0&\cdots&0&0&0&1&1&1&\cdots&0&1&1\\
+                0&0&0&\cdots&0&0&0&1&1&1&\cdots&1&0&1\\
+                0&0&0&\cdots&0&0&0&1&1&1&\cdots&1&1&0\\
+            \end{pmatrix}.
+        \end{equation}
+\end{qqq}
+\begin{aaa}
+    记$u=\begin{pmatrix}
+        1&1&\cdots&1
+    \end{pmatrix}^T$.
+    则\[M=\begin{pmatrix}
+        uu^T-I&A\\O&uu^T-I
+    \end{pmatrix}.\]
+    增广矩阵$(M,I)=\begin{pmatrix}
+        uu^T-I&A&I&O\\O&uu^T-I&O&I
+    \end{pmatrix}\longrightarrow \begin{pmatrix}
+        I&O&(uu^T-I)^{-1}&-(uu^T-I)^{-1}A(uu^T-I)^{-1}\\O&I&O&(uu^T-I)^{-1}
+    \end{pmatrix}.$
+    由\[(A+\alpha\beta^T)^{-1}=A^{-1}-\frac{1}{1+\beta^TA^{-1}\alpha}A^{-1}\alpha\beta^TA^{-1}.\]
+    代入即可.
+\end{aaa}
+
+\subsubsection{习题 5}
+\begin{qqq}
+    计算以下矩阵的逆矩阵
+    \begin{equation}
+        M=\begin{pmatrix}
+            1&2&3&\cdots&n-1&n\\n&1&2&\cdots&n-2&n-1\\n-1&n&1&\cdots&n-3&n-2\\\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\3&4&5&\cdots&1&2\\2&3&4&\cdots&n&1
+        \end{pmatrix}
+    \end{equation}
+\end{qqq}
+\begin{aaa}
+    \[M^{-1}=\frac{2}{n^2(n+1)}\cdot \text{循环矩阵}
+    \begin{pmatrix}
+        1-\frac{n(n+1)}{2}&1+\frac{n(n+1)}{2}&1&1&\cdots&1
+    \end{pmatrix}.\]
+\end{aaa}
+
+\subsubsection{问题 6}
+\begin{qqq}
+    计算以下矩阵的逆矩阵
+    \begin{equation}(M)_{ij}=\min \{i,j\}.\end{equation}
+\end{qqq}
+\begin{aaa}
+    \[M^{-1}=\begin{pmatrix}
+        2&-1&&&&&\\-1&2&-1&&&&\\&-1&2&-1&&&\\&&\ddots&\ddots&\ddots&\\&&&-1&2&-1\\&&&&-1&1
+    \end{pmatrix}\]
+\end{aaa}
+
+
+\subsubsection{习题 7}
+\begin{qqq}
+    计算以下矩阵的逆矩阵
+    \begin{equation}   
+    M=
+    \begin{pmatrix}
+        k^0\cdot C^0_0&&&&&&\\k^1\cdot C^0_1 &k^0\cdot C^1_1\\k^2\cdot C^0_2&k^1\cdot C^1_2&k^0\cdot C^2_2\\
+        \vdots&\vdots&\vdots&\ddots\\k^{n-2}\cdot C^0_{n-2}&k^{n-3}\cdot C^1_{n-2}&k^{n-4}\cdot C^2_{n-2}&\cdots &k^{0}\cdot C^{n-2}_{n-2}\\
+        k^{n-1}\cdot C^0_{n-1}&k^{n-2}\cdot C^1_{n-1}&k^{n-3}\cdot C^2_{n-1}&\cdots &k^{1}\cdot C^{n-2}_{n-1}&k^0\cdot C^{n-1}_{n-1}\\
+        k^nC^0_n&k^{n-1}\cdot C^0_{n}&k^{n-2}\cdot C^1_{n}&\cdots &k^{2}\cdot C^{n-2}_{n}&k^{1}\cdot C^{n-1}_{n}&k^0\cdot C^{n}_{n}\\
+    \end{pmatrix}^T
+    \end{equation}
+\end{qqq}
+\begin{aaa}
+    \[M=\begin{pmatrix}
+        k^0\cdot C^0_0&&&&&&\\-k^1\cdot C^0_1 &k^0\cdot C^1_1\\-k^2\cdot C^0_2&-k^1\cdot C^1_2&k^0\cdot C^2_2\\
+        \vdots&\vdots&\vdots&\ddots\\-k^{n-2}\cdot C^0_{n-2}&-k^{n-3}\cdot C^1_{n-2}&-k^{n-4}\cdot C^2_{n-2}&\cdots &k^{0}\cdot C^{n-2}_{n-2}\\
+        -k^{n-1}\cdot C^0_{n-1}&-k^{n-2}\cdot C^1_{n-1}&-k^{n-3}\cdot C^2_{n-1}&\cdots &-k^{1}\cdot C^{n-2}_{n-1}&k^0\cdot C^{n-1}_{n-1}\\
+        -k^nC^0_n&k^{n-1}\cdot C^0_{n}&-k^{n-2}\cdot C^1_{n}&\cdots &-k^{2}\cdot C^{n-2}_{n}&-k^{1}\cdot C^{n-1}_{n}&k^0\cdot C^{n}_{n}\\
+    \end{pmatrix}\]
+\end{aaa}
+
+\subsection{困难习题}
+\subsubsection{习题 8}
+\begin{qqq}
+    计算以下矩阵的逆矩阵
+    \begin{equation}
+        M=\begin{pmatrix}
+            2\cos x&1 & & & & \\1&2\cos x&1 \\&1&2\cos x&1\\&& 1&\ddots&\ddots\\&&&\ddots&2\cos x&1\\&&&&1&2\cos x
+        \end{pmatrix}
+    \end{equation}
+\end{qqq}
+\begin{aaa}
+    
+\end{aaa}
+
+
+
+
+
+\newpage
+\section{线性空间}
+\subsection{通过Sage计算LU分解}
+\subsubsection{习题 1}
+\begin{qqq}
+    (广义LU分解)任意矩阵$A\in \mathbb{F}^{m\times n}$可以分解作$A=LD\widetilde{I}SU$的五元乘积形式.
+\end{qqq}
+\begin{aaa}
+    
+
+\end{aaa}
+
+\subsection{线性空间,基的证明题}
+\subsubsection{习题 2}
+\begin{qqq}
+    假定$V$是任意域上的线性空间.试构造子集$S\subset V$(向量组),其同时满足
+    \begin{enumerate}
+        \item 集合$S$的大小是2024.
+        \item $S$中任意20
+    \end{enumerate}
+\end{qqq}
+\begin{aaa}
+    取$V$中2024个线性无关的向量$v_1,v_2,\ldots,v_{2024}$,\\构造$S:=\{v_i\mid 1\leq i \leq 2024\}\cup \{v_1+v_2+\cdots +v_{2024}\}$.其满足条件1.\\下证明满足条件2.
+    \\$v_1,v_2,\ldots,v_{2024} $是线性无关的,只需证明$v_2,v_3,\ldots,v_{2024},v_1+v_2+\cdots+v_{2024}$线性无关.\\
+    假设他们是线性相关的,那么存在不全部为0的$c_1,c_2,\ldots ,c_{2024}$使得\[c_1v_2+c_2v_3+\cdots+c_{2023}v_{2024}+c_{2024}(v_1+v_2+\cdots+v_{2024})=0.\]
+    即\begin{equation}c_{2024}v_1+(c_1+c_{2024})v_2+(c_2+c_{2024})v_3+\cdots +(c_{2023}+c_{2024})v_{2024}=0\tag{$\ast $}\end{equation}
+    由于$v_1,v_2,\ldots,v_{2024}$线性无关,若$(\ast)$式推得$c_{2024}=c_1=c_2=\cdots=c_{2023}=0$.\\\
+    所以构造的$S$符合要求.
+\end{aaa}
+\subsubsection{习题 4}
+\begin{qqq}
+    给定数域上的线性空间$V$.任意给定$V$中有限个真子空间$\{U_i\}^m_{i=1}$,总有
+    \begin{equation}
+        \left(\bigcup ^m_{i=1}U_i\right)\neq V.
+    \end{equation}
+    (若$\mathbb{F}$不是数域.试给出$m=3$的反例.)
+\end{qqq}
+\begin{aaa}
+    引理:线性空间$U_1,U_2$的并是线性空间当且仅当$U_1\subset U_2$或$U_2\subset U_2.$
+    \begin{proof}
+        $U_1+U_2$是包含$U_1$和$U_2$的最小的线性空间,因此$(U_1+U_2)\subset (U_1\cup U_2).$\\
+        但是任取$U_1\cup U_2$中的元素,他一定在$U_1$或$U_2$中,也在$U_1+U_2$中,因此$(U_1\cup U_2)\subset (U_1+U_2)$.\\
+        得出$U_1+U_2=U_1\cup U_2.$\\
+        假设结论不成立,那么存在$U_1,U_2$中的元素$v_1,v_2$分别不在向量空间$U_2,U_1$中,因此$v_1+v_2$在$V_1$中或$V_2$中.\\
+        若$v_1+v_2\in V_1$,那么$v_2=(v_1+v_2)-v_1\in V_1$,矛盾!\\
+        同理可以得到$v_1+v_2 \notin V_2$,因此假设不成立.
+    \end{proof}
+    由引理可知习题4成立.\\
+    \noindent 反例:取$\mathbb{F}$是一个环,不是域.\\
+    特别的,\\
+    取$\mathbb{F}$为特征值为2的域.那么取$V$是定义在$F$上的线性空间.$V=\{(0,0),(0,1),(1,0),(1,1)\}$.\\
+    取$U_1=\{(0,0),(0,1)\},\quad U_2=\{(0,0),(1,0)\},\quad U_3=\{(0,0),(1,1)\},\quad$这是一个反例.
+    
+\end{aaa}
+
+
+\subsubsection{习题 8}
+\begin{qqq}
+    证明\begin{enumerate}
+        \item $((V\cap W)+U)\cap V=\hspace{2 cm} =V\cap (W+(U\cap V)),$
+        \item $((V+W)\cap U)+V= \hspace{2 cm} = V+(W\cap (U+V)).$
+    \end{enumerate}
+\end{qqq}
+\begin{aaa}
+\begin{enumerate}
+    \item \begin{proof}
+            \[(U\cap V)\subset V ,\quad (V\cap W)\subset V.\]
+            \[((V\cap W)+U)\cap V=((V\cap W)\cap V)+(U\cap V)=(U\cap V)+(V+W).\]
+            \[V\cap (W+(U\cap V))=(V\cap W)+(V\cap (U+V))=(V\cap W)+(U\cap V)\]
+            线性空间的和有交换律.
+            \end{proof}
+
+    \item \begin{proof}
+             \[V\subset (V+W),\quad V\subset (U+V).\]
+             \[((V+W)\cap U)+V=((V+W)+V)\cap (U\cap V)=(V+W)\cap (U+ V).\]
+             \[V+(W\cap(U+V))=(V+W)\cap(V+(V+V))=(V+W)\cap (U+V).\]
+            \end{proof}
+\end{enumerate}
+\end{aaa}
+
+
+
+\subsection{(span:子集$\rightarrow$子空间)(dim:子空间$\rightarrow \mathbb{N}$)与(rank=dim$\circ $span)}
+\subsubsection{习题 16}
+\begin{qqq}
+    给定子集$S_1$和$S_2$.
+    \begin{enumerate}
+        \item 证明$\sspan (S_1\cap S_2)\subset \sspan(S_1)\wedge \sspan(S_2).$
+        \item 证明$\sspan(S_1)+\sspan(S_2)=\sspan(S_1\cup S_2).$
+    \end{enumerate}
+\end{qqq}
+\begin{aaa}
+    \begin{enumerate}
+        \item \begin{proof}
+                若$S_1\cap S_2=\emptyset$,易知其成立.\\
+                若$S_1\cap S_2\neq \emptyset $,\\
+                不妨设\[S_1=\{\alpha_1,\ldots,\alpha_n,\beta_1,\ldots,\beta_k\}\]
+                    \[S_2=\{\alpha_1,\ldots,\alpha_n,\gamma_1,\ldots,\gamma_{_l}\}\]
+                    \[\sspan(S_1)=\sspan\{\alpha_{n_1},\ldots,\alpha_{n_{p}},\beta_{n_1},\ldots,\beta_{n_q}\}\]
+                    \[\sspan(S_2)=\sspan\{\alpha_{n_1},\ldots,\alpha_{n_{p}},\gamma_{n_1},\ldots,\gamma_{n_r}\}\]
+                    则
+                    \[\sspan(S_1\cap S_2)=\sspan\{{\alpha_{n_1}},\ldots,\alpha_{n_p}\}\subset (\sspan(S_1)\wedge \sspan(S_2))\]
+                    同时可以举例\[S_1=\{(0,1),(1,1)\},\quad S_2=\{(0,2),(1,1)\}\]说明是包含关系.
+
+                \end{proof}
+
+
+        \item \begin{proof}
+                同1,可以得到\[\sspan(S_1\cup S_2)=\sspan\{\alpha_{n_1},\ldots,\alpha_{n_{p}},\beta_{n_1},\ldots,\beta_{n_q},\gamma_{n_1},\ldots,\gamma_{n_r}\}\]
+                容易验证,这等于$\sspan(S_1)+\sspan(S_2)$
+                \end{proof}
+    \end{enumerate}
+\end{aaa}
+
+
+
+
+
+
+
+
+
+\end{document}

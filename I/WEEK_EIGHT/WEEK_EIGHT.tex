@@ -1,0 +1,232 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\definecolor{qing}{RGB}{235,243,250} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=qing, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=2pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{qing}
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+
+\title{第8周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.\\
+
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{Problem 1}
+
+记$f(x)=x^3+bx^2+cx+d$是有理系数多项式 ($b,c,d \in \mathbb{Q}$).\\
+\begin{qing}
+    视个人情况完成  $\{1,2\}$. 完成  $\{3,5,7\}$ 或 $\{4,6,8\}$ , 这两组题是对称的.
+\end{qing}
+
+\begin{qqq}数域是什么?\end{qqq}
+\begin{aaa}
+    设$P$是由一些复数构成的集合,其中包括$0$和$1$. 如果$P$中的任何两个数(可以相同)的和,差,积,商(除数不为0)仍是$P$中的数,则称$P$是一个数域.
+\end{aaa}
+\[{}\]
+\begin{qqq}
+    假设$f(x)$在$\mathbb{Q}$上无法因式分解. 任取多项式的一根$x_0\in \mathbb{C}$,证明三维空间$\mathbb{Q}-$线性空间
+    \begin{equation}
+        V=\{r+sx_0+tx_0^2\mid r,s,t \in \mathbb{Q}\}
+    \end{equation}
+    是一个数域.
+\end{qqq}
+\begin{proof}
+    容易验证$V$是线性空间,因此仅验证对乘除封闭.\\
+    对乘法,\[
+        (r_1+s_1x_0+t_1x_0^2)(r_2+s_2x_0+t_2x_0^2)
+        =C_1+C_2x_0+C_3x_0^2+C_4x_0^3+C_5x_0^4 \quad (C_i \in \mathbb{Q})
+    \]
+    再利用$x_0^3=-(bx_0^2+cx_0+d)$降次即可,且系数是有理数经有限次加减乘法得到,仍为有理数.\\
+    对除法,\\先考虑将$V$中的元素$v=r+sx_0+tx_0^2$视作有理数的向量$(r,s,t)\in\mathbb{Q}^3$.\\
+    取$V$中的元素$v \notin\mathbb{Q}$,由于$V$的维数是3,因此$\{1,v,v^2,v^3\}$必定关于域$\mathbb{Q}$线性相关.即存在不全为0的数$a_0,a_1,a_2,a_3$使得$g(v)=a_0+a_1v+a_2v^2+a_3v^3=0$\\
+    不妨设$g$无法分解成真因子的乘积,即$g(0)\neq 0$,那么\[v^{-1}=\frac{a_1+a_2v+a_3v^2}{-a_0}\in V\]
+\end{proof}
+
+\[{}\]
+\begin{qqq}
+    取定$V$的一组$\mathbb{Q}-$基$B=(v_1,v_2,v_3)$.对任意$\lambda\in V$,存在矩阵$M_\lambda^B\in\mathbb{Q}^{3\times 3}$使得
+    \begin{equation}
+        \lambda\cdot\begin{pmatrix}
+            v_1\\v_2\\v_3
+        \end{pmatrix}=M-\lambda^B\cdot\begin{pmatrix}
+            v_1\\v_2\\v_3
+        \end{pmatrix}
+    \end{equation}
+    若另取一组基$B'=(v_1',v_2',v_3')$,同样可定义$\lambda\mapsto M_\lambda^{B'}$.\\
+    试证明:$\det(M_\lambda^{B})=\det(M_\lambda^{B'})$.换言之, $\det(M_\lambda)$不依赖基的选取.
+\end{qqq}
+\begin{proof}
+    令$X=(v_1\quad v_2\quad v_3)^T$,
+    即\[\lambda X=MX\]\[\lambda X'=M'X'\].
+    由于$X,X'\neq 0$,有\[\det(\lambda I-B)=\det(\lambda I-M')=0\]
+    这个两个方程是与$X$无关的.也就是说$\lambda$是下面两个方程的根\
+    \[\lambda^3-tr(B)\lambda^2+C\lambda-\det(B)=0\]
+    \[\lambda^3-tr(B')\lambda^2+C'\lambda-\det(B')=0\]
+    做差并带入$\lambda$可以得到关于$x_0$的二次有理方程,结合$f$不能因式分解,因此做差得到的只能是恒等式.\\
+    因此$tr(B)=r(B'),\det(B)=\det(B').$
+\end{proof}
+\[{}\]
+\begin{qqq}
+    仍假定$f(x)$在$\mathbb{Q}$上无法因式分解.记$\{x_1,x_2,x_3\}$是$f$在$\mathbb{C}$上的根, 证明$$\det(M_{x_1})=\det(M_{x_2})=\det(M_{x_3})$$.
+\end{qqq}
+\begin{proof}
+    假定$V=\{r+sx_1+tx_2^2\mid r,s,t\in\mathbb{Q}\}$.\\
+    由于基的选取不影响$M$的特征值.因此计算时取基为$(1,x_1,x_1^2)$,求得此时$M_{x_1}=
+    \begin{pmatrix}
+    0&1&0\\0&0&1\\-d&-c&-b
+    \end{pmatrix}$
+    其特征值为$-d$.\\
+    同理取基$(1,x_2,x_2^2)$得到$M_{x_2}$的行列式,也算出来是$-d$.对$M_{x_3}$同理.
+    因此$$\det(M_{x_1})=\det(M_{x_2})=\det(M_{x_3}).$$
+\end{proof}
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,464 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+
+\title{第三周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+{涉及矩阵的初等变换与阶梯型 (échelon form)}
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{第三周习题}
+
+\subsection{Problem 1}给定n行矩阵A.
+\begin{qqq}
+    \begin{pinked}
+    交换$A$的$[i,j]$两行,等价于左乘一个矩阵$S_{i,j}$.写出该矩阵.
+    \end{pinked}
+\end{qqq}
+\begin{aaa}
+    $$S_{i,j}=I-E_{i,i}-E_{j,j}+E_{i,j}+E_{j,i}\quad.$$
+\end{aaa}
+\begin{qqq}
+    \begin{pinked}
+        将$A$第$k$行的各项同时乘上一个非零常数$\lambda$,等价于左乘一个矩阵$D^{\lambda}_k$,写出该矩阵.
+    \end{pinked}
+    
+\end{qqq}
+\begin{aaa}
+    $$D^{\lambda}_k=I+(\lambda-1)E_{k,k}\quad.$$
+\end{aaa}
+\begin{qqq}
+    \begin{pinked}
+        向$A$的第$j$行加上第$i$行的$\lambda$倍(这一过程仅改变第$j$行,其他行不变),等价于左乘一个矩阵$T^{\lambda}_{i,j}.$写出该矩阵.
+    \end{pinked}
+    
+\end{qqq}
+\begin{aaa}
+    $$T^{\lambda}_{i,j}=I+\lambda E_{j,i}\quad .$$
+\end{aaa}
+\begin{qqq}
+    \begin{pinked}
+        求逆变换(逆矩阵)$S^{-1}_{i,j},(D^\lambda _{k})^{-1},$以及$(T^\lambda _{i,j})^{-1}\quad.$
+    \end{pinked}
+   
+\end{qqq}
+\begin{aaa}
+    $$S^{-1}_{i,j}=S_{i,j}\quad , \quad
+    (D^\lambda _{k})^{-1}=(D^{1/\lambda} _{k})\quad , \quad
+    (T^\lambda _{i,j})^{-1}=(T^{-\lambda} _{i,j})^{-1} \quad .$$
+\end{aaa}
+\begin{qqq}
+    \begin{pinked}
+        使用自然语言描述这三类逆变换.
+    \end{pinked}
+    
+\end{qqq}
+\begin{aaa}
+    将置换后的两行再次置换;\newline
+    将第$k$行的各项同时乘上一个非零常数$1/\lambda$;\newline
+    向$A$的第$j$行加上第$i$行的$-\lambda$倍.
+\end{aaa}
+\begin{qqq}
+    \begin{pinked}
+        求$S_{i,j}S_{k,l}=S_{k,l}S_{i,j}$的充要条件.
+    \end{pinked}
+        
+\end{qqq}
+\begin{aaa}
+    $\{i,j\}=\{k,l\}$或$\{i,j\}\cap \{k,l\}=\varnothing $;\newline
+    充分性:结合$S_{i,j}$变换的意义容易验证.\newline
+    必要性:我们结合$S_{i,j}$变换的意义容易验证有$S_{i,j}=S_{j,i}$.\newline
+    不妨设$i<j,k<l$,若$i,j,k,l$互不相等,那么先交换$i,j$再交换$k,l$和先交换$k,l$再交换$i,j$效果相同.\newline
+    若有一个相同,不妨设$j=k$,那么三列顺序本来是$xyz$,先$i,j$后$j,l$变成$yzx$,先$j,l$后$i,j$变成$zxy$,不相等,不成立.\newline
+    若有两个相同,那么由$S_{i,j}=S_{j,i}$知,两边相同.
+\end{aaa}
+\begin{qqq}
+    \begin{pinked}
+        求$T^\lambda _{i,j}T^\mu _{k,l}=T^\mu _{k,l}T^\lambda _{i,j}$的充要条件.
+    \end{pinked}
+    
+\end{qqq}
+\begin{aaa}
+    $i=j=k=l$或$(i-k)(j-l)\neq 0$.
+    $$T^\lambda _{i,j}T^\mu _{k,l}=(I+\lambda E_{j,i})(I+\mu E_{k,l})=I+\lambda E_{j,i}+\mu E_{k,l}+\lambda\mu E_{j,i}E_{k,l}$$
+    $$T^\mu _{k,l}T^\lambda _{i,j}=(I+\mu E_{k,l})(I+\lambda E_{j,i})=I+\lambda E_{j,i}+\mu E_{k,l}+\lambda\mu E_{k,l}E_{j,i}$$
+    故只需考虑$E_{j,i}E_{k,l}=E_{k,l}E_{j,i}$的充要条件.\newline
+    若$i \neq k,\quad E_{j,i}E_{k,l}=O,$那么在该条件下等号成立的充要条件是$E_{k,l}E_{j,i}=O$,也即$l \neq j$;\newline
+    若$i=k,E_{j,i}E_{k,l}=E_{j,l}$那么在该条件下等号成立的充要条件是$E_{k,l}E_{j,i}=E_{j,l}$,也即$k=j,l=j,i=l$,也即$i=j=k=l$;\newline
+    综上,原命题的充要条件是$i=j=k=l$或$(i-k)(j-l)\neq 0$
+\end{aaa}
+\begin{qqq}
+    \begin{pinked}
+        能否通过某两类矩阵得到第三类?
+    \end{pinked}
+    
+\end{qqq}
+\begin{aaa}
+    $S\& D\to T:\\$
+    \begin{align*}
+        &S_{i,j}D^\lambda _i+S_{i,j}S_{i,j}-S_{i,j}\\
+        =&(I-E_{i,i}-E_{j,j}+E_{i,j}+E_{j,i})(I+(\lambda-1)E_{i,i})+I-(I-E_{i,i}-E_{j,j}+E_{i,j}+E_{j,i})\\
+        =&(I-E_{i,i}-E_{j,j}+E_{i,j}+\lambda E_{j,i})-(E_{i,i}-E_{j,j}+E_{i,j}+E_{j,i})\\
+        =&I+(\lambda-1)E_{j,i}\\
+        =&T^{\lambda-1}_{i,j}
+    \end{align*}
+    $S \& T \to D$:
+    \begin{align*}
+        &S_{i,j}T^\lambda _{i,j}+S_{i,j}S_{i,j}-S_{i,j}\\
+        =&(I-E_{i,i}-E_{j,j}+E_{i,j}+E_{j,i})(I+\lambda E_{j,i})+I-(I-E_{i,i}-E_{j,j}+E_{i,j}+E_{j,i})\\
+        =&(I+(\lambda-1)E_{i,i}-E_{j,j}+E_{i,j}+E_{j,i})+(E_{i,i}+E_{j,j}-E_{i,j}-E{j,i})\\
+        =&I+\lambda E_{i,i}\\
+        =&D^{\lambda+1}_i
+    \end{align*}
+    $D \& T \to S$:
+    \begin{align*}
+        &-D^2_i-D^2_j+T^1_{i,j}+T^1_{j,i}+D^1_i\\
+        =&-(I+E_{i,i})-(I-E_{j,j})+(I+E_{j,i})+(I+E_{i,j})+I\\
+        =&I-E_{i,i}-E_{j,j}+E_{i,j}+E{j,i}\\
+        =&S_{i,j}
+    \end{align*}
+\end{aaa}
+\begin{qqq}
+    \begin{pinked}
+        假定$A$是方阵,将以上三个矩阵乘在$A$右侧,效果如何.
+    \end{pinked}
+    
+\end{qqq}
+\begin{aaa}
+    将$A$的第$i$列与第$j$列交换;\newline
+    将$A$的第$k$列的各项同时乘上一个非零常数;\newline
+    向矩阵$A$的第$j$列加上第$i$行的$\lambda$倍.
+\end{aaa}
+
+\subsection{Problem 2}矩阵的最简行阶梯形
+\begin{qqq}
+    \begin{pinked}
+        给定矩阵$A$,其最简行阶梯形$R$为何唯一?
+    \end{pinked}
+    
+\end{qqq}
+\begin{proof}
+    仅考虑非零矩阵$A=[\alpha_1,\ldots,\alpha_n]$,不妨设$n\geq m$,$\alpha_1\neq 0$,若不然考虑将最小下标非零向量$\alpha_k$列做类似的操作.\newline
+    不妨设$a_{11}=0$,若不然可以利用置换矩阵$S$来左乘$A$使得非零元素位于第一行.然后利用倍乘矩阵使得$a_{11}=1$.\newline
+    再左乘消元矩阵使得$a_{k1}=0,\quad(k=2,3,\ldots,n)$.此时$A$可以表示为
+    $$\begin{pmatrix}
+        1&B^{(1)}_{1\times (n-1)}\\O_{(m-1)\times }1&A^{(1)}_{(m-1)\times(n-1)}
+    \end{pmatrix}.$$
+    再对$A^{(1)}$进行上述的操作,得到的矩阵再操作,最后会得到一个行阶梯型矩阵$A'$,其递推类似于
+    \begin{align*}
+        A^{(k-1)}=
+        \begin{pmatrix}
+            1&B^{(k-1)}\\
+            O&A^{(k)}
+        \end{pmatrix}\quad or \quad
+        \begin{pmatrix}
+            O& 1&B^{(k-1)}\\
+            O&O&A^{(k)}
+        \end{pmatrix}.
+    \end{align*}
+    再进行化为最简操作.只需考虑$A'$,从最后一列开始,进行消元操作,仅保留该列最后一行元素,该列其他行元素都能变成0.进行有限次操作后就能得到最简行阶梯形.\newline
+    在这样的操作下肯定得到的矩阵是唯一的.
+        
+\end{proof}
+\begin{qqq}
+    \begin{pinked}
+    尝试给出一个无字证明.
+    \end{pinked}
+    
+\end{qqq}
+\begin{aaa}
+    一个矩阵$A$可以对应一个线性方程组$Ax=0$.矩阵化为行最简即视为解出这个方程组.\newline
+    当这个方程组有非零解时矩阵$A$的各列是线性相关的,否则是线性无关的.
+    由于对行进行初等变换不改变各列的线性相关性,也即不改变方程的解,这些变换是同解变化.\newline
+    而一个确定的方程他的解也是确定的,所以行最简矩阵唯一.
+\end{aaa}
+\begin{qqq}
+    转置矩阵$R^T$的最简行阶梯形是什么?
+\end{qqq}
+\begin{aaa}
+    矩阵$R$的列最简矩阵.
+\end{aaa}
+\begin{qqq}
+    \begin{pinked}
+    证明相抵标准型的存在性:对任意矩阵$A$,存在可逆矩阵$P$和$Q$使得
+    $$A=P
+    \begin{pmatrix}
+        I_r & O\\O & O
+    \end{pmatrix}
+    Q.$$
+    以上,$I_r$是$r$阶单位矩阵,$O$表示数字0出现的位置.
+    \end{pinked}
+    
+\end{qqq}
+\begin{proof}
+    由问题1.10的解答可以知道,\newline
+    对任意矩阵$A$,其行最简存在,可以由一系列初等变换得到.对他的行最简矩阵再进行置换操作可以得到一个新的矩阵$A''$,而这些变换都可以通过对$A$左乘初等矩阵$P_i$得到.记$P'=P_1P_2\cdots P_s.\\$
+    $$A''=P'A=
+    \begin{pmatrix}
+        I_r&F\\O&O
+    \end{pmatrix}.$$
+    
+    $$(A'')^T=\begin{pmatrix}
+        I_r&O\\F^T&O\\
+    \end{pmatrix}$$
+    对转置后的矩阵进行行最简操作,由于$I_r$与$F^T$列数相同且这$r$列均非0,因此会得到矩阵$A'''$,左乘的矩阵为$Q_i$,记$Q'=(Q_1Q_2\cdots Q_t)^T$
+    $$A'''=(Q')^T(A'')^T=\begin{pmatrix}
+        I_r&O\\O&O
+    \end{pmatrix}$$
+    得到了,
+    $$\begin{pmatrix}
+        I_r&O\\O&O
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        I_r&O\\O&O
+    \end{pmatrix}^T
+    =
+    ((Q')^T(A'')^T)^T
+    =
+    A''Q'
+    =
+    P'AQ'$$
+    $P',Q'$显然可逆,因为他们都可以表示成初等矩阵的乘积,且可逆矩阵转置后仍然可逆.\newline
+    两边同时左乘右乘逆,得到
+    $$A=(P')^{-1}\begin{pmatrix}
+        I_r&O\\O&O
+    \end{pmatrix}(Q')^{-1}$$
+    取$P=(P')^{-1},Q=(Q')^{-1}$,即可得
+    $$A=P
+    \begin{pmatrix}
+        I_r & O\\O & O
+    \end{pmatrix}
+    Q.$$
+
+    
+\end{proof}    
+\begin{qqq}
+    \begin{pinked}
+        证明以上的$r$由$A$唯一决定.作为推论,矩阵的行秩等于列秩.往后统一称作秩.
+    \end{pinked}  
+\end{qqq}
+\begin{proof}
+    由问题1.13知道,$A$经过初等变换后得到的$\begin{pmatrix}
+        I_r&F\\O&O
+    \end{pmatrix}$与$\begin{pmatrix}
+        I_r & O\\O & O
+    \end{pmatrix}$的$r$相同.\newline
+    而矩阵$\begin{pmatrix}
+        I_r&F\\O&O
+    \end{pmatrix}$中的$r$表示方程$Ax=0$的主元的个数.这是由方程系数矩阵$A$唯一决定的.
+\end{proof}
+\newpage
+\section{Challenging Problem 1}
+\begin{qqq} 
+    \begin{pinked}
+    若整数矩阵$A=
+    \begin{pmatrix}
+        a&b\\c&d
+    \end{pmatrix}$满足$ad-bc=1$,则$A$是以下几类矩阵的有限乘积.$$
+    S=\begin{pmatrix}
+        0 &1\\-1&0
+    \end{pmatrix},\quad
+    T=\begin{pmatrix}
+        1&1\\0&1
+    \end{pmatrix},\quad
+    T^{-1}=\begin{pmatrix}
+        1&-1\\0&1
+    \end{pmatrix}.
+    $$
+    \end{pinked}   
+\end{qqq}
+\begin{proof}
+    反过来考虑对$A$进行操作,对$A$右乘$S^{-1}$,$T$或$T^{-1}$,目的是得到单位矩阵.
+    我们有两种操作.
+    \begin{align}
+        AS^{-1}=
+        \begin{pmatrix}
+            b&-a\\d&-c
+        \end{pmatrix}
+    \end{align}
+    \begin{align*}
+        AS^{-1}S^{-1}=
+        \begin{pmatrix}
+            -a&-b\\-c&-d
+        \end{pmatrix}\text{(由(2.1)可以推得)}
+    \end{align*}
+    \begin{align}
+        AT=
+        \begin{pmatrix}
+            a+b&b\\c+d&d
+        \end{pmatrix}
+    \end{align}
+    \begin{align}
+        AT^{-1}=
+        \begin{pmatrix}
+            a-b&b\\c-d&d
+        \end{pmatrix}
+    \end{align}
+    (2.1)操作视为两列互换位置,并且新的第二列乘以-1.\newline
+    (2,2)和(2.3)操作视为将第二列加或减到第一列.\newline
+    如果将矩阵$A$任选一种操作,经过变换后的矩阵为$A'=\begin{pmatrix}
+        a'&b'\\c'&d'
+    \end{pmatrix},$计算可知$\boldmath{a'd'-b'c'=1.}$\newline
+    此外,我们注意到$ad-bc=1$.\newline
+    若$bc=0,ad=1$.若$a,d$均为1那么就是单位矩阵.若均为$-1$则操作两次(2.1)即可.\newline
+    若$ad<0$,那么对矩阵$A$操作两次(2.1)即可变得均为正.\newline
+    若$bc>0$,可以知道,$\op{gcd}(ad,bc)=1$,有$a,b$互质.\newline
+    对其进行$\textbf{辗转相除法}$的有限次操作,最终会得到一个矩阵,使得其左上角的元素为$1$.\newline
+    得到新矩阵$A''=\begin{pmatrix}
+        1&x\\y&z
+    \end{pmatrix}$,且$z-xy=1$.\newline
+    $$A^{(3)}=A''S^{-1}=\begin{pmatrix}
+        x&-1\\z&-y
+    \end{pmatrix}$$
+    $$A^{(4)}=A^{(3)}T^{x}=\begin{pmatrix}
+        0&-1\\z-xy&-y
+    \end{pmatrix}=\begin{pmatrix}
+        0&-1\\1&-y
+    \end{pmatrix}$$
+    $$A^{(5)}=A^{(4)}S^{-1}=\begin{pmatrix}
+        -1&0\\-y&-1
+    \end{pmatrix}$$
+    $$A^{(6)}=A^{(5)}(T^{-1})^y=\begin{pmatrix}
+        -1&0\\0&-1
+    \end{pmatrix}$$
+    $$A^{(7)}=A^{(6)}(S^{-1})^2=\begin{pmatrix}
+        1&0\\0&1
+    \end{pmatrix}$$
+\end{proof}
+\end{document}
