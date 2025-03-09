@@ -1,0 +1,218 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{定义}
+\newtheorem*{proposition}{命题}
+\newtheorem*{theorem}{定理}
+\newtheorem*{notation}{记号}
+\newtheorem*{example}{例子}
+\newtheorem*{exercise}{习题}
+\theoremstyle{remark}
+\newtheorem*{remark}{备注}
+\newtheorem*{lemma}{引理}
+\newtheorem*{corollary}{推论}
+
+
+
+\title{第三周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+
+\section{Problem Set for 3th March 2025}
+\subsection{Problem}
+Let $\FF$ denote the ground field, and let $S$ be any finite set.
+\begin{enumerate}
+    \item Demonstrate that $\op{Hom}_{\op{Sets}}(S,\FF)$ forms a vector space.
+    \item Construct a linear bijection (hereinafter refeered to as a linear isomorphism)\[\op{Hom}_{\op{Sets}}(S,\FF)\to \FF^{|S|}\]
+    \item Demonsrate that following function constitutes an injection of sets:\[\varphi:S\to \op{Hom}_{\FF}(\op{Hom}_{\op{Sets}}(S,\FF),\FF)\]\[s\mapsto \begin{bmatrix}\op{Hom}_{\op{Sets}}(S,\FF) &\to  &\FF\\ f &\mapsto & f(s)\end{bmatrix}\]
+    \item Demonstrate that the image $\varphi(S)$ forms a basis for $\mathrm{Hom}_{\mathbb{F}}(\mathrm{Hom}_{\mathrm{Sets}}(S, \mathbb{F}), \mathbb{F})$.
+    \item This is how we define\[\FF_{s_1}\oplus \FF_{s_2}\oplus\cdots\oplus\FF_{s_n}\qquad S=\{s_1,\ldots,s_n\}\]
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+        \item $\op{Hom}_{\op{Sets}}(S,\FF) \neq \emptyset$\\$(f+g)(s)=f(s)+g(s)$\\$(\lambda f)(s)=\lambda f(s)$.
+        \item $\op{Hom}_{\op{Sets}}(S,\FF)\to \FF^{|S|}$\\$f\mapsto (f(s_1),f(s_2),\ldots,f(s_n))$
+        \item $\varphi$ is injective.\\$\forall s \neq t$, $\varphi(s)$ is a map from $\op{Hom}_{\op{Sets}}(S,\FF)$ to $\FF$.$\varphi(s)$,$\varphi(t)$ is two different maps.
+        \item $\op{Hom}_{\op{Sets}}(S,\FF)\cong  \FF^{|S|}$By the iso we can see that $\varphi(S)$ is a basis for $\mathrm{Hom}_{\mathbb{F}}(\mathrm{Hom}_{\mathrm{Sets}}(S, \mathbb{F}), \mathbb{F})$.
+        \item $\FF_{s_1}\oplus \FF_{s_2}\oplus\cdots\oplus\FF_{s_n}=\op{Hom}_{\op{Sets}}(S,\FF)$
+    \end{enumerate}
+\end{aaa}
+\section{Problem Set for 6th March 2025}
+\subsection{Exercise 1}
+Here is the compositon rules for lnear maps $U \to V \to W$. Show that 
+\begin{enumerate}
+    \item if $f$ and $g$ are linear injections, then so is $g\circ f$.
+    \item if $f \circ g$ is a linear injection, then so is $f$.
+    \item if $f$ and $g$ are linear surjections, then so is $g\circ f$.
+    \item if $f \circ g$ is a linear surjection, then so is $g$.
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+        \item $\forall x,y\in U$, $g(f(x))=g(f(y))\Rightarrow f(x)=f(y)\Rightarrow x=y$.
+        \item $\forall x,y\in U$, $f(x)=f(y)\Rightarrow g(f(x))=g(f(y))\Rightarrow x=y$.
+        \item $\forall z\in W$, $\exists x\in U$, $g(f(x))=z$.
+        \item $\forall z\in W$, $\exists x\in U$, $g(f(x))=z$.
+    \end{enumerate}
+\end{aaa}
+\subsection{Exercise 2}
+show that:
+\begin{enumerate}
+    \item $\Phi(f_1,f_2)$ is an injection, only if $f_1$ and $f_2$ are injections.
+    \item $\Phi(f_1,f_2)$ is a surjection, if $f_1$ or $f_2$ are surjections.
+    \item $\Psi(f_1,f_2)$ is an injection, if $f_1$ or $f_2$ are injections.
+    \item $\Psi(f_1,f_2)$ is a surjection, only if $f_1$ and $f_2$ are surjections.
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+          \item $(\Phi(f_1,f_2))(u_1,u_2)=f_1(u_1)+f_2(u_2)$\\so $$f_1(u_1)=f_1(u'_1)\Rightarrow (\Phi(f_1,f_2))(u_1,u_2)=(\Phi(f_1,f_2))(u'_1,u_2)\Rightarrow u_1=u'_1$$ so $f_1$ and $f_2$ are injections.
+          \item $\forall z\in V$, $\exists u_1\in U_1$, $\exists u_2\in U_2$, $f_1(u_1)=z$ or $f_2(u_2)=z$.
+          \item $(\Psi(f_1,f_2))(u)=(f_1(u),f_2(u))$\\so $$\forall u_1 \neq u_2\text{, only need }f_1(u_1)\neq f_1(u_2) \text { or } f_2(u_1)\neq f_2(u_2)$$ so $f_1$ or $f_2$ are injections.
+          \item $\forall z_1\in V_1,z_2 \in V_2$, need $\exists u \in U$ such that $f_1(u)=z_1$ and $f_2(u)=z_2$.
+    \end{enumerate}
+\end{aaa}
+\end{document}
