@@ -1,0 +1,201 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{定义}
+\newtheorem*{proposition}{命题}
+\newtheorem*{theorem}{定理}
+\newtheorem*{notation}{记号}
+\newtheorem*{example}{例子}
+\newtheorem*{exercise}{习题}
+\theoremstyle{remark}
+\newtheorem*{remark}{备注}
+\newtheorem*{lemma}{引理}
+\newtheorem*{corollary}{推论}
+
+
+
+\title{第五周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{Problem Set for 17 March 2025}
+\subsection{Exercise}
+Prove the following(Whenever we write $f_*X$, it is assumed that the linear space X is a subspace of the domain, and similarly for $f^*X$):
+\begin{enumerate}
+    \item $U\subset f^*f_*U$, when does equality hold for all U?
+    \item $f_*f^*V\subset V$, when does equality hold for all V?
+    \item $f_*f^*f_*=f_*$.
+    \item $f^*f_*f^*=f^*$.
+    \item $f_*(U+V)=f_*U+f_*V$.
+    \item $f^*(U\cap V)=f^*U\cap f^*V$.
+    \item Explain $f_*(U\cap V)\subset f_*U\cap f_*V$.
+    \item Explain $f^*(U+V)\supset f^*U+f^*V$.
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+        \item $f$单射
+        \item 等号能取到吧
+        \item $\forall v$, suppose $f(U)=v$, then $f_*(f^*v)=f_*U=v$.
+        \item $\forall v$, suppose $f^*(v)=U$, then $f^*(f_*u)=f^*v=U$.
+        \item $f(u+v)=f(u)+f(v)\in f_*U+f_*V$, so $f_*(U+V)\subset f_*U+f_*V$.\\$\forall f(u)\in f_*U$ and $f(v) \in f_*V$, $f(u)+f(v)=f(u+v) \in f_*(U+V)$. So $f_*U+f_*V\subset f_*(U+V)$.
+        \item $\forall x \in U\cap V$, $f^*(x)=f^*(x)\in f^*U\cap f^*V$. So $f^*(U\cap V)\subset f^*U\cap f^*V$.\\$\forall x\in f^*U\cap f^*V$,$f(x)\in U\cap V$,$x\in f^*(U\cap V)$.so $f^*U\cap f^*V\subset f^*(U\cap V)$.
+        \item $\forall x\in U\cap V$, $f_*(x)=f_*(x)\in f_*U\cap f_*V$. So $f_*(U\cap V)\subset f_*U\cap f_*V$.
+        \item $\forall x\in f^*U+f^*V$, $x=f^*(u)+f^*(v)=f^*(u+v)\in f^*(U+V)$. So $f^*U+f^*V\subset f^*(U+V)$.
+    \end{enumerate}
+\end{aaa}
+\subsection{Problem}
+\begin{enumerate}
+    \item Show that $\op{Hom}_{\FF}(\FF[x],\FF)\cong \FF[[x]]$.
+    \item Show that $\op{Hom}_{\FF}(\FF[[x]],\FF)$ has a subspace which is iso to $\FF[x]$.
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+        \item $(\op{Hom}_{\FF}(\FF[x],\FF),+,\cdot)$ is a linear space over $\FF$.we can find a basis $\{\varphi(x^k)\}_{k \geq 1}$\\let $\sigma:\op{Hom}_{\FF}(\FF[x],\FF)\to \FF[[x]],f \mapsto g(x)$ is a linear map.\\let $\sigma(\varphi(x^k))=\sum_{n=1}^\infty \delta_{kn}x^n$\\let $\sigma(f)=\sigma(\sum_{k=0}^{\infty}a_k\varphi(x^k))=\sum_{k=0}^{\infty}a_kx^k=0\Rightarrow a_k=0 \Rightarrow f=0$\\and $\sigma$ is surjective obveriously.\\so $\sigma$ is an isomorphism.
+        \item $\op{Hom}_{\FF}(\FF[[x]],\FF)$ is a linear space over $\FF$.\\let $U=\{\sum_{k=0}^{\infty}a_k\varphi(x^k)|a_k=0,k\geq 1\}$\\let $\sigma:U\to \FF[x],f \mapsto g(x)$ is a linear map.\\let $\sigma(\sum_{k=0}^{\infty}a_k\varphi(x^k))=\sum_{k=0}^{\infty}a_kx^k$\\let $\sigma(f)=\sigma(\sum_{k=0}^{\infty}a_k\varphi(x^k))=\sum_{k=0}^{\infty}a_kx^k=0\Rightarrow a_k=0 \Rightarrow f=0$\\and $\sigma$ is surjective obveriously.\\so $\sigma$ is an isomorphism.
+    \end{enumerate}
+\end{aaa}
+\end{document}
