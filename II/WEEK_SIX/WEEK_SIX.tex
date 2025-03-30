@@ -1,0 +1,277 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{定义}
+\newtheorem*{proposition}{命题}
+\newtheorem*{theorem}{定理}
+\newtheorem*{notation}{记号}
+\newtheorem*{example}{例子}
+\newtheorem*{exercise}{习题}
+\theoremstyle{remark}
+\newtheorem*{remark}{备注}
+\newtheorem*{lemma}{引理}
+\newtheorem*{corollary}{推论}
+
+
+
+\title{第六周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{Problem Set for 24 March 2025}
+\subsection{Exercise}
+Prove Isomoprphism Theorem A
+\begin{aaa}
+    \begin{enumerate}
+        \item  Let $\phi:U/\ker\varphi \to \op{im} \varphi$.
+        \item $\phi(u+\ker\varphi+v+\ker\varphi)=\phi(u+v+\ker\varphi)=\varphi(u+v)=\varphi(u)+\varphi(v)=\phi(u+\ker\varphi)+\phi(v+\ker\varphi)$\\$\phi(\lambda(u+\ker\varphi))=\phi(\lambda u+\ker\varphi)=\varphi(\lambda u)=\lambda \varphi(u)=\lambda \phi(u+\ker\varphi)$
+        \item If $\phi(u+\ker\varphi)=0$ , then $\varphi(u)=0$ and $u+\ker\varphi=\ker\varphi$. then $[u]=[0]$
+        \item For any $y\in \op{im}\varphi$ , $\exists u$ such that $\varphi(u)=y$ , then $\phi(u+\ker\varphi)=\varphi(u)=y$ , so $\phi$ is surjective.
+    \end{enumerate}
+\end{aaa}
+\subsection{Exercise}
+Use Isomoprphism Theorem A to Prove Isomoprphism Theorem C.
+\begin{aaa}
+    Define the map:\[f:W/U \to W/V,\quad w+U \mapsto w+V\]
+    the map is surjective, since any $y \in W/V$ is of the form $w+V$ , hence $y=(w+V)$ has a preimage $w$.
+    \\
+    The kernel of $f$ consists of elements for which $f(w+U)=0$, i.e. $w \in V$ .Thus , $\ker f= V\in U$.\\
+    By Isomoprphism Theorem A, we obtain:\[\frac WV \simeq \frac{W/U}{V/U}\]
+\end{aaa}
+
+\subsection{Exercise}
+Let $U_i\subset V_i$ be subspace, prove the isomoprphism,
+\[\frac{V_1\times V_2}{U_1\times U_2} \simeq \frac{V_1}{U_1}\times \frac{V_2}{U_2}\]
+\begin{aaa}
+    Define the map \[f: V_1\times V_2 \to \frac{V_1}{U_1}\times \frac{V_2}{U_2},quad (v_1,v_2) \mapsto (v_1+U_1,v_2+U_2)\]
+    The map is surjective, since any $y \in \frac{V_1}{U_1}\times \frac{V_2}{U_2}$ is of the form $(v_1+U_1,v_2+U_2)$ , hence $y=(v_1+U_1,v_2+U_2)$ has a preimage $(v_1,v_2)$.\\
+    The kernel of $f$ consists of elements for which $f(v_1+U_1,v_2+U_2)=0$, i.e. $v_1 \in U_1$ and $v_2 \in U_2$. Thus , $\ker f= U_1\times U_2$.\\
+    By Isomoprphism Theorem A, we obtain:\[\frac{V_1\times V_2}{U_1\times U_2} \simeq \frac{V_1}{U_1}\times \frac{V_2}{U_2}\]
+\end{aaa}
+\subsection{Exercise}
+Let $f: V\to V$ be a liunear map. Use the Isomoprphism Theorem A to show that  \[\frac{\op{im}f}{\op{im}f\cap \ker f}=\op{im}f\circ f=\frac{\op{im}f+\ker f}{\ker f}\]
+\begin{aaa}
+    Define the map \[f: V/\ker f \to \op{im}f\]
+    The map is surjective, since any $y \in \op{im}f$ is of the form $f(v)$ , hence $y=f(v)$ has a preimage $v$.\\
+    The kernel of $f$ consists of elements for which $f(v+\ker f)=0$, i.e. $v \in \ker f$ .Thus , $\ker f= \op{im}f\cap \ker f$.\\
+    By Isomoprphism Theorem A, we obtain:\[\frac{\op{im}f}{\op{im}f\cap \ker f}=\op{im}f\circ f=\frac{\op{im}f+\ker f}{\ker f}\]
+\end{aaa}
+\subsection{Exercise}
+Let be $X\to Y \to Z$ linear maps with no additional assumptions. Prove that
+\begin{enumerate}
+    \item $g^{-1}(g(f(X)))=\op{im}f +\ker g$
+    \item $f(f^{-1}g^{-1}(0))=\op{im}f \cap \ker g$
+    \item $\frac{g^*(0)}{f_*f^*g*0}\simeq \frac{f_*X}{g^*g_*f_*X}$
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+        \item $g^{-1}(g(f(X)))=g^{-1}(g(\op{im}f+0))=g^{-1}g(\op{im}f)+g^{-1}(0)=\op{im}f+\ker g$
+        \item $g^{-1}(0)=\ker g$ and $g^{-1}(0) \in \op{im}f$
+        \item 带入上述两问就是isomorphism定理B的应用.
+    \end{enumerate}
+\end{aaa}
+\section{Problem Set for 24 March 2025}
+\subsection{Exercise 0}
+\begin{aaa}
+    \begin{enumerate}
+        \item [2] $\op{im}g/\op{im}f \to \op{im}fg$,\quad $v+\op{im}f \mapsto w$
+        \item [4] $\op{Hom}(U,W)\to \op{Hom}(\op{Hom}(V,W),\op{HGm}(U,V))$,\quad $f \mapsto g$
+        \item [5] as above.
+        \item [6] $\op{Hom}_{\op{Set}}(S,V) \to V^n$, \quad $f \mapsto v$
+        \item [7] $\op{Hom}_{\FF}(\FF[[x]],\FF)\to \FF[x]$.
+    \end{enumerate}
+\end{aaa}
+\subsection{Exercise 1}
+Show that $U \simeq \op{Hom}_{\FF}(\FF,U)$ for any $\FF$-linear space $U$.
+\begin{aaa}
+    \begin{enumerate}
+        \item Define the map \[f: U \to \op{Hom}_{\FF}(\FF,U),\quad u \mapsto f_u\]
+        \item $f(\lambda u)=f_u(\lambda)=\lambda f_u(1)=\lambda f(u)$\\$f(u+v)=f_{u+v}(1)=f_u(1)+f_v(1)=f(u)+f(v)$
+        \item Let $f(u)=0$, then $f_u(1)=0$ . So $f_u(\lambda)=0$ for all $\lambda\in \FF$.So $u=0$
+        \item For all $f_u\in \op{Hom}_\FF(\FF,U)$, there has $u=f_u(1)$ in $U$ sucj that $f(u)=f_u$
+        \item Thus, $f$ is bijective.
+    \end{enumerate}
+\end{aaa}
+\subsection{Exercise 2}
+Show that $U\simeq \op{Hom}_{\FF}(\op{Hom}_{\FF}(U,F),F)$ if $\dim U < \infty$.
+\begin{aaa}
+    \begin{enumerate}
+        \item Define $\Phi:U\simeq \op{Hom}_{\FF}(\op{Hom}_{\FF}(U,F),F),\quad u \mapsto [f\mapsto f(u)]$
+        \item $\Phi(\lambda u)=\lambda \Phi(u)$\\$\Phi(u+v)=\Phi(u)+\Phi(v)$
+        \item Let $\Phi(u)=0$, then $f(u)=0$ for all $f\in \op{Hom}_{\FF}(U,F)$. So $u=0$
+        \item For all $f\in \op{Hom}_{\FF}(U,F)$, there has $u=f(u)$ in $U$ such that $\Phi(u)=f$
+        \item Thus, $\Phi$ is linear Isomoprphism.
+    \end{enumerate}
+\end{aaa}
+\subsection{Exercise 3}
+Let $V$ be a linear space and $S \subset V$ is linearly independent ( $S$ is not necessary finite). SHow that\[\op{Hom}_{\FF}(\sspan(S),\FF)\simeq \op{Hom}_{\op{Sets}9S,\FF}\]
+\begin{aaa}
+    \begin{enumerate}
+        \item Define the map \[\Phi: \op{Hom}_{\FF}(\sspan(S),\FF) \to \op{Hom}_{\op{Sets}}(S,\FF),\quad f\mapsto (f(s))_{s\in S}\]
+        \item $\Phi(f+g)=((f+g)(s))_{s\in S}=(f(s)+g(s))_{s\in S}=\Phi(f)+\Phi(g)\\
+        \Phi(\lambda f)=((\lambda f)(s))_{s\in S}=(\lambda f(s))_{s\in S}=\lambda \Phi(f)$
+        \item Let $\Phi(f)=0$, then $f(s)=0$ for all $s\in S$. So $f=0$
+        \item For all $g\in \op{Hom}_{\op{Sets}}(S,\FF)$, there has $f(s)=g(s)$ in $\sspan(S)$ such that $\Phi(f)=g$
+        \item   Thus, $\Phi$ is linear Isomoprphism.
+    \end{enumerate}
+\end{aaa}
+\subsection{Exercise 4}
+Recall that $\CC$-linear spaces are $\RR$-linear spaces. Show that 
+$\op{Hom}_{\RR}(U,V)\simeq (\op{Hom}_{\CC}(U,V))^2$.
+\begin{aaa}
+    \begin{enumerate}
+        \item [0.] Let $f,g\in \op{Hom}_{\CC}(U,V)$, $\lambda \in \RR$,  then $f+g\in \op{Hom}_{\CC}(U,V)$ and $\lambda f\in \op{Hom}_{\CC}(U,V)$
+        \item [1.] Define the map \[\Phi: \op{Hom}_{\RR}(U,V) \to (\op{Hom}_{\CC}(U,V))^2,\quad f\mapsto (f_1,f_2)\]
+               $ f_1(u):=f(u)-if(iu)$,then \\$(f_1+g_1)(u)=(f+g)u-i(f+g)(iu)=f(u)+if(iu)+g(u)+ig(iu)=f_1(u)+g_1(u)$\\$(\lambda f_1)u=(\lambda f)u-i(\lambda f)(iu)=\lambda(f(u)-if(iu))=\lambda f_1(u)$.
+        \item [2.] $\Phi(f+g)=(f_1+g_1,f_2+g_2)=(f_1,f_2)+(g_1,g_2)=\Phi(f)+\Phi(g)$\\
+         $\Phi(\lambda f)=(\lambda f_1,\lambda f_2)=(\lambda f_1,\lambda f_2)=\lambda \Phi(f)$
+        \item [3.] Let $\Phi(f)=0$, then $f_1(u)=0$ and $f_2(u)=0$ for all $u\in U$. So $f=0$
+        \item [4.] For all $(f_1,f_2)\in (\op{Hom}_{\CC}(U,V))^2$, there has $f(u)=f_1(u)+if_2(u)$ in $V$ such that $\Phi(f)=(f_1,f_2)$
+        \item Thus, $\Phi$ is linear Isomoprphism.
+    \end{enumerate}
+\end{aaa}
+\end{document}
