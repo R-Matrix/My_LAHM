@@ -1,0 +1,246 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{定义}
+\newtheorem*{proposition}{命题}
+\newtheorem*{theorem}{定理}
+\newtheorem*{notation}{记号}
+\newtheorem*{example}{例子}
+\newtheorem*{exercise}{习题}
+\theoremstyle{remark}
+\newtheorem*{remark}{备注}
+\newtheorem*{lemma}{引理}
+\newtheorem*{corollary}{推论}
+
+
+
+\title{高等代数 (荣誉) I 作业模板}
+\author{请输入姓名}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{Problem Set For 07 April 2025}
+\subsection{Exercise}
+Let $V$ be a vector space over a field $\FF$ and define  $\op{End}(V):= \op{Hom}_{\FF}(V,V)$.Define:
+\begin{itemize}
+    \item $f \in \op{End}(V)$ as almost zero (denoted $f\in \op{AZ}(V)$ ), provided $\op{dim}\op{im}(f)<\infty$.
+    \item $f\in \op{End}(V)$ as almost isomorphism (denoted $f\in \op{AI}(V)$), provided $\op{dim}\op{ker}(f)+\op{dim}\frac{V}{\op{im}f}<\infty$.
+\end{itemize}
+Now finish the following:
+\begin{enumerate}
+    \item if $\op{dim V}< \infty$,determine $\op{AZ}(V)$ and $\op{AI}(V)$.
+    \item if $V=\RR[x]$, find an injective $f in \op{AI}(V)$ and surjective $g\in \op{AI}(V)$.Additionally, find some $h\neq \op{AI}(V)\cup \op{AZ}(V)$.
+    \item Determine whether $\op{AZ}(V)$ and $\op{AI}(V)$ are subspaces of $\op{End}(V)$.
+    \item Show that for arbitrary $f,g \in \op{AZ}(V)$,one has $g\circ f\in \op{AZ}(V)$
+    \item Prove that $\op{AZ}$ is an ideal in $\op{End}(V)$.
+    \item Show that for arbitrary $f,g\in \op{AI}(V)$. One has $g\circ f\in \op{AI}(V)$.
+    \item Demonsrate that if any two of $\{f,g, g\circ f\}$ belong to $\op{AI}(V)$, then so does the third.
+    \item Show that for arbitrary $f\in \op{AZ}(V)$, one has $(\op{id}_V+f)\in \op{AI}(V)$.
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+        \item 由于 $\op{dim V}<\infty$, 所以 $\op{dim}\op{im}(f)<\infty$ 说明 $f\in \op{AZ}(V)$, 因此 $\op{AZ}(V)=\op{End}(V)$.同理$\op{AI}(V)=\op{End}(V)$
+        \item $f:x^n\mapsto x^{n+1},n=0,1,\cdots$\\ $g:x^n \mapsto nx^{n-1},n=0,1,\cdots$\\$h:x^n\mapsto x^n\delta_{n,2[n/2]},n=0,1,\cdots$.
+        \item $\op{AZ}(V)$ 是子空间, 因为 $\op{dim}\op{im}(f+g)\leq \op{dim}\op{im}(f)+\op{dim}\op{im}(g)<\infty$.\\$\op{dim}\op{im}(\lambda f)=\op{dim}\op{im}(f)<\infty$($\lambda\neq 0$)\\$\op{AI}(V)$是子空间,证明为7
+        \item $\op{dim}\op{im}(g\circ f)\leq \op{dim}\op{im}(f)<\infty$ or $\op{dim}\op{im}(g\circ f)\leq \op{dim}\op{im}(g)<\infty$.
+        \item As above.
+        \item 见7
+        \item $F:\ker g\circ f\to \ker g,\quad x\mapsto f(x)$. Then $\ker (g\circ f)\supset\ker f  $, so $\ker F=\ker f$,and it is surjective. \\dually, $[V/\op{im}g \to V/\op{im}(g\circ f),\quad u+g(V)\mapsto u+g(f(V))]$ has kernel $V/(\op{im}f+\op{im}g)$.\\so $\dim\ker f+\dim\ker g\cap \op{im}f=\ker g\circ f$, $\dim V/(\op{im}f+\op{im}g)+\dim V/\op{im}(g\circ f)=\dim V/\op{im}g$.
+    \end{enumerate}
+\end{aaa}
+\section{Problem Set For 10 April 2025}
+\subsection{Exercise 1}
+\begin{aaa}
+Any $V \xrightarrow f U_2$, which factors through $V_1 \xrightarrow \varphi V_1$, factors through $\varphi$ uniquely.\\
+Every $U_2 \xrightarrow f V$ factors through $U_1 \xrightarrow \psi U_2$.\\
+The subspace of $(U, V_1)$ consisting of the linear maps whose kernel contains the image of $\varphi$.\\
+The subspace of $(U_2, V)$ consisting of the linear maps which factor through $U_2 \xrightarrow \psi U_1$.
+\end{aaa}
+\subsection{Exercise 2}
+Suppose that $K \subseteq U$ is the kernel of $U \xrightarrow f V$. Denote the inclusion by the linear map $i : K \hookrightarrow U$. Show that for any linear space $W$, the linear map
+$$
+(f \circ -): (W,U) \to (W, V), \quad  \varphi \mapsto f \circ \varphi
+$$
+has kernel $(W, K)$ along with the inclusion
+$$
+(i \circ -): (W,K) \hookrightarrow (W, U), \quad  \varphi \mapsto i \circ \varphi.
+$$
+Show in steps that
+\begin{enumerate}
+    \item $(i \circ -)$ is indeed an injection, identifying $(W,K)$ as a subspace of $(W,U)$
+    \item Show that $\ker (f \circ -)$ coincides with the image of $(i \circ -)$, that is, the subspace $(W,K)$.
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+    \item 由于 $i$ 是单射, 所以 $(i\circ -)$ 也是单射.\\$(i \circ -)$ 是线性映射, 所以 $(W,K)$ 是 $(W,U)$ 的子空间.
+    \item 对任意的($W,K$)中的元素 $\varphi$, 由 $f\circ \varphi=0$ 可知 $\varphi \in \ker (f\circ -)$.\\
+    \end{enumerate}
+\end{aaa}
+
+
+\subsection{Exercise 3}
+Suppose that $V \twoheadrightarrow \frac{V}{\operatorname {im} f}$ is the quotient map induced by a given $U \xrightarrow f V$. Denote the natural quotient map by the linear map $\pi :V \twoheadrightarrow \frac{V}{\operatorname {im} f}$. Show that for any linear space $X$, the linear map
+$$
+(-\circ f): (V,X) \to (U, X), \quad  \psi \mapsto \psi \circ f
+$$
+has kernel $(V/ (\operatorname {im} f),X)$ along with the inclusion
+$$
+(- \circ \pi ): (V / (\operatorname {im}f), X) \hookrightarrow (V, X), \quad  \psi \mapsto \psi \circ \pi.
+$$
+Show in steps that\
+\begin{enumerate}
+    \item $(- \circ \pi)$ is indeed a surjection, identifying $(V / (\operatorname {im}f), X) $ as a subspace of $(V,X)$.
+    \item Show that $\ker (- \circ f)$ coincides with the image of $(- \circ \pi)$, that is, the subspace $(V/ (\operatorname {im} f),X)$.
+\end{enumerate}
+\begin{aaa}
+    \begin{enumerate}
+        \item 由于 $\pi$ 是满射, 所以 $(-\circ \pi)$ 也是满射.\\$(-\circ \pi)$ 是线性映射, 所以 $(V/ (\operatorname {im} f),X)$ 是 $(V,X)$ 的子空间.
+        \item 对任意的($V/ (\operatorname {im} f),X$)中的元素 $\varphi$, 由 $\varphi\circ \pi=0$ 可知 $\varphi \in \ker (-\circ f)$.
+    \end{enumerate}
+\end{aaa}
+
+
+\end{document}
