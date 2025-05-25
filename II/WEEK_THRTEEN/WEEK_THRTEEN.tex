@@ -1,0 +1,279 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{定义}
+\newtheorem*{proposition}{命题}
+\newtheorem*{theorem}{定理}
+\newtheorem*{notation}{记号}
+\newtheorem*{example}{例子}
+\newtheorem*{exercise}{习题}
+\theoremstyle{remark}
+\newtheorem*{remark}{备注}
+\newtheorem*{lemma}{引理}
+\newtheorem*{corollary}{推论}
+
+
+
+\title{第十三周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\subsection{Exercise 1}
+Determine whether the following are inner product spaces (简要回答即可).
+
+1. $V$ is the vector space continuous functions over $\mathbb R$, and the pairing is
+   $$
+   (f,g) \mapsto \int_0^1 f(x)g(x) \operatorname dx.
+   $$
+
+2. $V = \mathbb R[x]$, and the pairing is
+   $$
+   (f,g) \mapsto \int_{-\infty}^\infty f(x)g(x)e^{-x^2} \operatorname dx.
+   $$
+
+3. $V = \mathbb R^{n \times n}$, and the pairing is
+   $$
+   (A,B) \mapsto \det (A^T\cdot B).
+   $$
+\begin{aaa}
+1. 是 \\
+2. 是 , $e^{-x^2}$保证了收敛性 \\
+3. 不是 , 没有双线性\\
+
+\end{aaa}
+\subsection{Exercise 2}
+Show that every real matrix is similar to a block diagonal matrix, wherein the candidates of the blocks are
+
+1. the Jordan form of a real eigenvalue;
+
+2. the block of the form
+   $$
+   \begin{bmatrix}
+   H_{r,\theta } & Q &  &  & \\
+    & H_{r,\theta } & Q &  & \\
+    &  & \ddots  & \ddots  & \\
+    &  &  & H_{r,\theta } & Q\\
+    &  &  &  & H_{r,\theta }
+   \end{bmatrix},
+   $$
+    where
+
+   1. $H_{r,\theta} = \begin{bmatrix}
+      r\cos \theta  & -r\sin \theta \\
+      r\sin \theta  & r\cos \theta 
+      \end{bmatrix}$, and
+   2. $Q = \begin{bmatrix}
+      0 & 0 \\ 1 & 0
+      \end{bmatrix}$.
+\begin{aaa}
+    对实矩阵进行Jordan分解, 其特征值为实数的保持不变\\
+    对于复数特征值$\lambda=re^{i\theta}$, 可以把复数写成矩阵形式 
+\end{aaa}
+\subsection{Exercise 2.5}
+Show that every real matrix is a product of two real symmetric matrices.
+\begin{aaa}
+    $A=P^{-1}JP$, 然后把每个块$J_i$乘次对角线全为1的矩阵得到$J_i'$, 那么$A=P^{-1}J'(P^{-1})^T\cdot P^TI'P$
+\end{aaa}
+\subsection{Exercise 3}
+Let $(V, (-,-))$ be a finite dimensional real inner product space. For unit vector $v_0$ (i.e., $(v_0,v_0)=1$), we define the reflection
+$$
+\varphi : V \to V,\quad x \mapsto x - 2(x,v_0)\cdot v_0.
+$$
+Show that for isometric transform $\psi$ (i.e., $(\psi(u), \psi (v)) = (u,v)$), $1$ is an eigenvalue for $\psi$ or $\psi \circ \varphi$. Overall, $1 \in \sigma (\psi) \cup \sigma (\psi \circ \varphi)$.
+\begin{aaa}
+    假设1不是$\psi$的特征值,令$(\psi\circ \phi)(x)= x $ , 即 寻找非0的$x$ 使得 $(\psi-I)(x) = 2(x,v_0)\psi(v_0)$ , 即 $x = 2(x,v_0)(\psi-I)^{-1}\psi(v_0)$,$\Rightarrow$$(x,v_0) = 2(x,v_0)((\psi-I)^{-1}\psi(v_0),v_0)$\\
+    所以$(\psi-I)^{-1}\psi(v_0)$非0, x非0
+\end{aaa}
+\subsection{Exercise 4}
+Set $V:=\mathbb R[x]$ and $V_0:=\{f\in \mathbb R[x]\mid f(0)=f(1)\}$.
+
+1. Prove that $V\times V\to \mathbb R,\quad (f,g)\mapsto \int_0^1 f(x)g(x)\operatorname dx$ is an inner product.
+
+2. Set $\mathscr D:V_0\to V,\quad f(x)\mapsto f^\prime (x)$. Find $\dim\ker(\mathscr D)$ and $\dim\operatorname{coker}(\mathscr D)$.
+
+3. Define the inner product restricted on the subspace
+   $$
+   (\cdot ,\cdot )_0:V_0\times V_0\to \mathbb R,\quad (f,g)\mapsto \int_0^1 f(x)g(x)\operatorname d x.
+   $$
+   Is there any linear map $\mathscr D^\ast:V\to V_0$ such that for any $h\in V_0$ and $g\in V$,
+   $$
+    (\mathscr D^\ast g,h)_0=(g,\mathscr Dh)?
+   $$
+\begin{aaa}
+    1. 双线性, 对称, 正定\\
+    2. $\dim\ker(\mathscr D) = 1$, $\dim\operatorname{coker}(\mathscr D) = 1$\\
+    3. $\mathscr D^\ast=-\mathscr D$
+\end{aaa}
+\subsection{Exercise 5}
+Let $(V, (,))$ be an inner product space, where $V$ is not necessary finite dimensional.
+
+- Say $\varphi ^\star$ is the adjoint of $\varphi \in \mathrm{Hom}_{\mathbb R}(V,V)$, provided $(\varphi^\star (x), y) = (x , \varphi (y))$ for arbitrary $x,y\in V$.
+
+- Let $U$ be a subspace of $V$. Set
+  $$
+  U^\perp := \{v \in V \mid (u, v) = 0 , \forall u \in U\}  =\bigcap _{u \in U}\ker((u,-))
+  $$
+
+Now we assume that $\varphi$ is invertible, and $\varphi^\star$ exists.\\
+
+1. Show that $\varphi^\star$ is injective, and $(\mathrm{im}(\varphi ^\star))^\perp = 0$.\\
+2. Show that $\varphi^\star$ is surjective $\implies$ $(\varphi^{-1})^\star$ exists and $(\varphi ^{-1})^\star = (\varphi^\star)^{-1}$.\\
+3. Show that $(\varphi^{-1})^\star$ exists $\implies$ $\varphi^\star$ is invertible and $(\varphi ^{-1})^\star = (\varphi^\star)^{-1}$.\\
+4. Let $V = \mathbb R[x]$ and $(f,g) := \sum_{n \geq 0}f_i g_i$, where $h = \sum h_i\cdot x^i$. Show that\\
+   1. $(V, (,))$ is an inner product space;\\
+   2. $L : f \mapsto \frac{f-f(0)}{x}$ is the linear map of moving left. Show that $(\mathrm{id}+L)$ is invertible;\\
+   3. Show that $\varphi := (\mathrm{id}+L)^{-1}$ has no adjoint $\varphi^\star$.
+\begin{aaa}
+    1. 令$\phi^*(x)=0$, 那么 $(\phi^*(x),y) = (x , \phi(y)) =0 $ 对任意的$y$都成立, 所以$x=0$\\令$y\in (\op{im(\phi^*)})^{\perp}$ , 那么对任意$x$ , $(下, \phi(y))=0$, $\phi(y) = 0 $, $y = 0$.\\ 
+    2. $\phi^*$ bij, $\exists z, \phi(z)=x$, $(\phi^*((\phi^{-1})^{*}(x)),y)=((\phi^{-1})^{*}(x),\phi(y))=(x,y)$ , 因此 $(\varphi ^{-1})^\star = (\varphi^\star)^{-1}$\\
+    3. $(\phi^*((\phi^{-1})^{*}(x)),y)=((\phi^{-1})^{*}(x),\phi(y))=(x,y)$ , 因此 $(\varphi ^{-1})^\star = (\varphi^\star)^{-1}$\\
+    4.1. 双线性, 对称, 正定\\
+    4.2. $(id+L)(f)=\sum_{i=0}^{n-1} (f_i+f_{i+1})x^i+f_nx^n$, 显然可逆.\\
+    4.3. $(id+L)^{-1}(f)=\sum_{i=0}^{n-1}(\sum_{j=i}^n(-1)^{j-1}f_j)x^i+f_nx^n$\\
+    假设$\phi=(id+L)^{-1}$存在$\phi^*$, 那么取$f=1$, $(\phi^*(1),g)=(1,\phi(g))=g_0-g_1+g_2-\cdots$,取不同的$g$, 得到的$\phi^*(1)$不同, 矛盾.
+\end{aaa}
+\end{document}

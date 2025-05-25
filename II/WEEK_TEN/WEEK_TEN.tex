@@ -1,0 +1,279 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{定义}
+\newtheorem*{proposition}{命题}
+\newtheorem*{theorem}{定理}
+\newtheorem*{notation}{记号}
+\newtheorem*{example}{例子}
+\newtheorem*{exercise}{习题}
+\theoremstyle{remark}
+\newtheorem*{remark}{备注}
+\newtheorem*{lemma}{引理}
+\newtheorem*{corollary}{推论}
+
+
+
+\title{第十周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{Exercise}
+\begin{qqq}
+    1. ($V$ is non-trivial)** Demonstrate that $V$ is not finite-dimensional. 
+\end{qqq}\
+\begin{aaa}
+    考虑$a(x)=\begin{cases}
+    e^{1/x^2-1}, \quad |x|<1 \\
+    0, \quad |x|\geq1
+    \end{cases}$,
+    $a_n(x)=a(x-2n)$,显然每个$a_n(x)$都是$V$中的元素,且$a_n(x)$是线性无关的,那么$V$中有无穷多个线性无关的元素,所以$V$不是有限维的.
+\end{aaa}
+\begin{qqq}
+    2. (Differential Operator)** Show that the operator $D: V \to V$, defined by $f \mapsto f'$, is well-defined. Determine the kernel $\ker D$, the image $\operatorname{im} D$, and the cokernel $\operatorname{coker} D$.
+\end{qqq}
+\begin{aaa}
+    因为$V$中的元素都是光滑函数,所以它们的导数也是光滑函数.且大于0的部分其导数也是0,因此$D(f)$也在$V$中,所以$D$是良定义的.\\
+    2. $\ker D=0$,因为$D(f)=0$当且仅当$f$是常数函数,而常数函数在$V$中只有0.\\
+    3. $\operatorname{im} D={f \in V\mid \exists x_0,\int _{-x_0}^{x_0} f \op{d}x=0 }$\\
+    4. $\operatorname{coker} D= C+\op{im} D$, $C\in \RR$
+\end{aaa}
+\begin{qqq}
+    3. (Integrable Functionals)** Let $\varphi: \mathbb{R} \to \mathbb{R}$ be a function that is Riemann integrable over any bounded interval $[a,b]$. Show that the following map defines an element of $V^\ast$:
+$$
+V \to \mathbb{R}, \quad f \mapsto \int_{-\infty}^{\infty} f(x)\varphi(x)\, \mathrm{d}x.
+$$
+\end{qqq}
+\begin{aaa}
+    定义该映射为$\sigma$,那么$\sigma$是线性映射,因为$\int_{-\infty}^{\infty} (af_1+bf_2)\varphi(x)\, \mathrm{d}x=a\int_{-\infty}^{\infty} f_1(x)\varphi(x)\, \mathrm{d}x+b\int_{-\infty}^{\infty} f_2(x)\varphi(x)\, \mathrm{d}x$,所以$\sigma$是线性映射.\\
+\end{aaa}
+\begin{qqq}
+    ($V^\ast$, merging some functions, and introducing some non-functions)**. The preceding exercise defines a mapping
+$$
+\Phi : \{\text{Locally Riemann-Integrable Functions}\} \to V^\ast, \quad f \mapsto \left[g \mapsto \int_{-\infty}^\infty f(x)g(x)\, \mathrm{d}x\right].
+$$
+It is known that $\Phi$ is neither injective nor surjective.  
+- Let $f$ be the function defined by $f(x) = 0$ for all $x \neq 1$, and $f(1) = 1$. Then $f \in \ker \Phi$.  
+- The Dirac delta functional $\delta$, defined informally below, is not in the image of $\Phi$.
+\end{qqq}
+\begin{aaa}
+    1. 令$f(x)=\begin{cases}
+    0,\quad x\neq 1\\
+    1,\quad x=1
+    \end{cases}$,那么$f(x)g(x)=\begin{cases}
+        0,\quad x\neq 1\\
+        g(1),\quad x=1
+        \end{cases}$,由数学分析知识知道$\int_{-\infty}^{\infty}f(x)g(x)\op{d}x=0$, 也就是$\Phi(f)=0$  , 但是 $f\neq 0$ , 因此$\Phi$ 不是单射\\
+        ?f不属于$V$,应该定义$f(x)=\lim_{n\to \infty}exp(1-1/(1-(nx^2)))=\lim_{n\to\infty}b(nx)$,别的地方全是0?\\\[{}\]
+    2.Dirac delta function $\delta$,不能被写成某两个正常黎曼可积的乘积的无穷积分.?
+\end{aaa}
+\begin{qqq}
+    5. ($V \hookrightarrow V^\ast$)** Show that $\ker \Phi \cap V = \{0\}$, and thus that $V$ can be regarded as a subspace of $V^\ast$.
+
+\end{qqq}
+\begin{aaa}
+    令$f\in V$且满足对任意$\varphi\in V$都有$\int_{-\infty}^{infty}f\varphi\op{d}x=0$, 令$\varphi =f$ ,再由于$f$ 连续可以得到$f=0$
+\end{aaa}
+\begin{qqq}
+    6. (The Dirac Delta Functional)** The Dirac delta functional $\delta$ is informally described as:
+$$
+\delta(x) = 
+\begin{cases}
+0, & x \neq 0, \\
+\infty, & x = 0,
+\end{cases} \quad \int_{-\infty}^\infty \delta(x)\, \mathrm{d}x = 1.
+$$
+Provide a formal definition of $\delta$ as an element of $V^\ast$.
+\end{qqq}
+\begin{aaa}
+    $\delta(f)=f(0)$,那么$\delta(af+bg)=(af+bg)(0)=af(0)+bg(0)=a\delta(f)+b\delta(g)$
+\end{aaa}
+\begin{qqq}
+    *7. (Generalised Derivatives)** Define $\varphi$ as a piecewise linear function passing through the points:
+$$
+(-\infty, 0) \to (-1,0) \to (0,2) \to (1,-1) \to (2,0) \to (+\infty, 0).
+$$
+Although $\varphi$ is continuous, its derivative $\varphi'$ is not classically defined. Use the identity
+$$
+\int_{-\infty}^\infty f(x)g'(x)\, \mathrm{d}x = -\int_{-\infty}^\infty f'(x)g(x)\, \mathrm{d}x
+$$
+to define $\varphi'$ in the distributional sense. Express $\varphi''$ explicitly as a linear combination of shifted Dirac delta functions $\delta(x-a)$.
+\end{qqq}
+\begin{aaa}
+$\varphi'=2\delta(x)-\delta(x-1)$\\
+$\varphi''=2\delta^2(x)-\delta^2(x-1)$
+\end{aaa}
+\begin{qqq}
+    8. (Generalised Limits)** For each $\varphi \in V \hookrightarrow V^\ast$, define a sequence of functions for each $n \in \mathbb{N}_+$ by:
+$$
+(-)_n : V \to V, \quad \varphi \mapsto \left[x \mapsto n \cdot \varphi(nx)\right].
+$$
+It is evident that:
+$$
+\int_{-\infty}^\infty \varphi_n(x)\, \mathrm{d}x = \int_{-\infty}^\infty \varphi(x)\, \mathrm{d}x.
+$$
+The sequence $\{\varphi_n\}$ does not converge uniformly in $V$. However, show that there exists $L \in V^\ast$ such that:
+$$
+L(f) = \lim_{n \to \infty} \int_{-\infty}^\infty f(x)\varphi_n(x)\, \mathrm{d}x.
+$$
+Your task is to show that the limit exists for arbitrary $f$, and that $L$ is linear.
+
+\end{qqq}
+\begin{aaa}
+    \begin{align*}
+        \lim_{n \to \infty} \int_{-\infty}^\infty f(x)\varphi_n(x)\, \mathrm{d}x &= \lim_{n \to \infty} \int_{-\infty}^\infty nf(x)\varphi(nx)\, \mathrm{d}x \\
+        &= \lim_{n \to \infty} \int_{-\infty}^\infty f(x/n)\varphi(x)\, \mathrm{d}x \\
+    \end{align*}
+    \begin{align*}
+        |\int_{-\infty}^{\infty}(f(x/n)-f(0))\varphi(x)\op{d}x|&=|\int_{-A}^{A}(f(x/n)-f(0))\varphi(x)\op{d}x|\\
+        &< |M_n\int_{-A}^{A}\varphi(x)\op{d}x|.\\
+    \end{align*}
+    其中$M_n=\max_{-A<x<A}|(f(x/n)-f(0))|=\max_{-A/n<x<A/n}|(f(x/n)-f(0))|\to 0,\, n\to \infty$\\
+    因此$L(f)=f(0)\int_{-\infty}^{\infty}\varphi(x)\op{d}x$
+    他是线性的.
+\end{aaa}
+\end{document}

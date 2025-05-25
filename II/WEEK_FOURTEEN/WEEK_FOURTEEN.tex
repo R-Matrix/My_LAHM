@@ -1,0 +1,208 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{定义}
+\newtheorem*{proposition}{命题}
+\newtheorem*{theorem}{定理}
+\newtheorem*{notation}{记号}
+\newtheorem*{example}{例子}
+\newtheorem*{exercise}{习题}
+\theoremstyle{remark}
+\newtheorem*{remark}{备注}
+\newtheorem*{lemma}{引理}
+\newtheorem*{corollary}{推论}
+
+
+
+\title{高等代数 (荣誉) I 作业模板}
+\author{请输入姓名}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{Problem Set for 19-May and 22-May}
+\subsection{Exercise 2}
+Let $J_A$ and $J_B$ denote the Jordan form of $A$ and $B$ respectively (all matrices are in $\mathbb F^{n \times n}$).
+
+1. Write down the Jordan form of the linear transformation $X \mapsto AXA^T$;\\
+2. Write down the Jordan form of the linear transformation $X \mapsto AXA$;\\
+3. Write down the Jordan form of the linear transformation $X \mapsto AX - XA$; \\
+4. Write down the Jordan form of the linear transformation $X \mapsto AX - XA^T$;\\
+5. Write down the Jordan form of the linear transformation $X \mapsto AXB$.
+\begin{aaa}
+    \begin{enumerate}
+        \item $A\otimes A=(P^{-1}J_AP)\otimes(P^{-1}J_AP)=(P^{-1}\otimes P^{-1})(J_A\otimes J_A)(P\otimes P)=(P\otimes P)^{-1}(J_A\otimes J_A)(P\otimes P)$\\
+        \item $J_A\otimes J_A^T$
+        \item $J_A\otimes J_A\otimes I-I\otimes A^T$
+        \item $J_A\otimes J_A\otimes I-I\otimes A$
+        \item $J_A\otimes J_B^T$
+    \end{enumerate}
+\end{aaa}
+\subsection{Exercise 3}
+Show that $\dim \ker [X \mapsto (AX - XA^T)] \geq n$, and explain when the equality holds.
+\begin{aaa}
+    考虑$A\otimes I - I\otimes A$, 每个块$J_i\otimes I-J_A$中一定有一个列为0,通过初等变换至少有$n_i-1$个新的列为0, 如果存在特征值相同为0的列更多.\\
+    故$\dim \ker [X \mapsto (AX - XA^T)] \geq n$取等条件为$A$的特征值各不相同或可对角化
+\end{aaa}
+\subsection{Exercise 4}
+             Show that there exists $\{0,1\}$-matrices $A$ and $B$ such that $A\otimes B$ and $B\otimes A$ are not similar.
+\begin{aaa}
+    Let $A=\begin{pmatrix}
+        1 & 0\\
+        0 & 0\end{pmatrix}, B=\begin{pmatrix}
+        1 & 0\\1&0 \end{pmatrix}$,\\
+    $A\otimes B=\begin{pmatrix}
+        1 & 1 & 0 & 0\\
+        0 & 0 & 0 & 0\\
+        0 & 0 & 0 & 0\\
+        0 & 0 & 0 & 0\end{pmatrix}, B\otimes A=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 0 & 0 & 0\\
+        1 & 0 & 0 & 0\\
+        0 & 0 & 0 & 0\end{pmatrix}$
+\end{aaa}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+
+\end{document}

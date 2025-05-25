@@ -1,0 +1,236 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{定义}
+\newtheorem*{proposition}{命题}
+\newtheorem*{theorem}{定理}
+\newtheorem*{notation}{记号}
+\newtheorem*{example}{例子}
+\newtheorem*{exercise}{习题}
+\theoremstyle{remark}
+\newtheorem*{remark}{备注}
+\newtheorem*{lemma}{引理}
+\newtheorem*{corollary}{推论}
+
+
+
+\title{高等代数 (荣誉) I 作业模板}
+\author{请输入姓名}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\subsection{Exercise 1}
+Characterise the ceigenspace corresponding to the ceigenvalue $0$.
+\begin{aaa}
+    $\bar{A}$ 的零空间
+\end{aaa}
+\subsection{Exercise 2}
+Demonstrate that if $\lambda$ is a ceigenvalue, then so too is $e^{i \theta} \cdot \lambda$. Furthermore, show that for any ceigenvector $v$, there exists a ceigenvector associated with a ceigenvalue $\geq 0$.
+\begin{aaa}
+    考虑$A\bar{v}=\lambda v$, $\Rightarrow A(\bar{e^{-i\theta}}v)=\lambda e^{2i\theta}(e^{-i\theta}v)$
+\end{aaa}
+\subsection{Exercise 3}
+Suppose $(v, \sigma)$ is a ceigenpair of $A$; then $(v, \sigma \overline \sigma)$ is an eigenpair of $A \overline A$. In particular,
+
+- if $A \in \mathbb C^{d \times d}$ possesses $d$ ceigenpairs which are linearly independent over $\mathbb C$, then $A\overline A$ is diagonalisable with all eigenvalues non-negative.
+
+Now consider the following **partial converse statement**:
+
+- $A$ has no ceigenvectors if and only if $A \overline A$ admits no eigenvalues in $\mathbb R_{\geq 0}$;
+- $A \in \mathbb C^{d \times d}$ has $d$ linearly independent ceigenpairs over $\mathbb C$ if and only if $A\overline A$ is diagonalisable with non-negative eigenvalues.
+\begin{aaa}
+    $A\bar{A}v=\sigma\bar{\sigma}v$, 
+\end{aaa}
+\subsection{Exercise 4}
+Elucidate **Exercise 3** (particularly the warning) with the following example:
+$$
+A = \begin{pmatrix} 1 & i \\ 0 & 1 \end{pmatrix},\quad v = \begin{pmatrix}1 \\ i \end{pmatrix}.
+$$
+\begin{aaa}
+    $A\bar{A}=\begin{pmatrix} 1 & i \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & -i \\ 0 & 1 \end{pmatrix} = \begin{pmatrix}
+    1&0\\0&1
+    \end{pmatrix}$
+    因此$v$是$A\bar{A}$的特征向量,
+    但是可以计算$v$不是$A$的c特征向量.
+\end{aaa}
+\subsection{Exercise 5}
+This serves to complete **Exercise 2**. Suppose $\{(v_i , \lambda_i)\}_{i=1}^n$ are ceigenpairs of $A$ such that $|\lambda_i| \neq |\lambda_j|$; show that $\{v_i\}_{i=1}^n$ are linearly independent.
+\begin{aaa}
+    $\{(v_i , |\lambda_i|^2)\}_{i=1}^n$也是$A\bar{A}$的特征对, 由于$|\lambda_i|^2\neq |\lambda_j|^2$, 所以$\{v_i\}_{i=1}^n$线性无关.
+\end{aaa}
+\subsection{Exercise 6}
+We aim to identify the analogue of the Jordan canonical form in the c-version, namely, $X =P J\overline P^{-1}$. We commence with a very special case:
+\\- $P\overline {P} = I$ if and only if $P = Q\overline Q^{-1}$ for some invertible $Q$.
+
+\begin{aaa}
+    "$\Rightarrow$":  $P\bar{P}=I$, Let $Q=P+I$, then $ P\bar{Q}=P\bar{P}+P=P+I+Q$
+\end{aaa}
+\subsection{Exercise 7}
+The most elementary Jordan matrix is the diagonal matrix. Show that $A$ is cdiagonalisable (i.e., $A = PD\overline P^{-1}$ for some $P$) if and only if $A\overline A$ is diagonalisable. In this scenario, $A\overline A$ has only non-negative eigenvalues.\
+\begin{aaa}
+    "$\leftarrow$": $A\bar{A}=P^{-1}DP$ and $D>0$, then we can find $P$ such that $A=P\sqrt{D}P^{-1}$\\
+\end{aaa}
+\subsection{Exercise 8}
+(Nilpotent part). Show that there exists a matrix $P$ such that $PA\overline P^{-1} = \binom{N \ \ O}{O \ \ B}$, where $N$ comprises nilpotent Jordan blocks and $B$ is invertible.
+\begin{aaa}
+    把$A\bar{A}$进行$Jordan$
+\end{aaa}
+\subsection{Exercise 9}
+To analyse the Jordan form of $A$, we begin by studying the Jordan form of $A \overline A$. Demonstrate the following:
+
+1. $A \overline A$ has a characteristic polynomial with real coefficients;\\
+2. non-real Jordan blocks occur in conjugate pairs;\\
+3. if $\dim \ker (\lambda I - A\overline A) = 1$ and $\lambda \in \mathbb R$, then $\lambda \geq 0$;
+\begin{aaa}
+    1. Ex 2. $A\bar{A}$ 的特征值都是实数, 其特征多项式是实系数的.\\
+    2. Ex 12. $A$ is csimilar to $\bar{A}$ and $\bar{A\bar{A}}=\bar{A}A$
+    3.$v^*A\bar{A}v=\lambda v^*v$ , 左为正, 故$\lambda >0$
+\end{aaa}
+\subsection{Exercise 10}
+\begin{aaa}
+    对$A\bar{A}$正特征值部分直接取对应特征向量, 对复数特征值部分, 交替选取$z$和$\bar{z}$对应特征向量, 对负数特征值部分, 个数一定是偶数, 然后对对应 Jordan 块直和得到半-Jordan 块后再计算 .
+\end{aaa}
+\end{document}

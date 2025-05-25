@@ -1,0 +1,11 @@
+\contentsline {section}{\numberline {0}说明}{0}{section.0}%
+\contentsline {subsection}{\numberline {0.1}Exercise 1}{1}{subsection.0.1}%
+\contentsline {subsection}{\numberline {0.2}Exercise 2}{1}{subsection.0.2}%
+\contentsline {subsection}{\numberline {0.3}Exercise 3}{1}{subsection.0.3}%
+\contentsline {subsection}{\numberline {0.4}Exercise 4}{1}{subsection.0.4}%
+\contentsline {subsection}{\numberline {0.5}Exercise 5}{1}{subsection.0.5}%
+\contentsline {subsection}{\numberline {0.6}Exercise 6}{1}{subsection.0.6}%
+\contentsline {subsection}{\numberline {0.7}Exercise 7}{2}{subsection.0.7}%
+\contentsline {subsection}{\numberline {0.8}Exercise 8}{2}{subsection.0.8}%
+\contentsline {subsection}{\numberline {0.9}Exercise 9}{2}{subsection.0.9}%
+\contentsline {subsection}{\numberline {0.10}Exercise 10}{2}{subsection.0.10}%

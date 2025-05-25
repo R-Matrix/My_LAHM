@@ -1,0 +1,231 @@
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{amsthm, amsfonts, amsmath, amssymb, mathrsfs, newclude, tikz-cd, tikz, ctex, mathtools, stmaryrd, datetime}
+
+
+%\setmainfont{Caladea}
+
+%% 也可以选用其它字库:
+% \setCJKmainfont[%
+%   ItalicFont=AR PL KaitiM GB,
+%   BoldFont=Noto Sans CJK SC,
+% ]{Noto Serif CJK SC}
+% \setCJKsansfont{Noto Sans CJK SC}
+% \renewcommand{\kaishu}{\CJKfontspec{AR PL KaitiM GB}}
+
+
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+% Include the x-color package for color support
+\usepackage{xcolor}
+
+% Define a new environment for red comments
+\usepackage{verbatim} % Required for the comment environment
+\usepackage{environ}
+
+\usepackage{mdframed} % Include mdframed for creating framed environments
+
+\definecolor{pinked}{RGB}{255,231,229} % Define a base color 
+% Define a new environment with a background color
+\newmdenv[
+  backgroundcolor=pinked, % Set the desired background color
+  linecolor=white, % Optional: Set the border line color
+  linewidth=1pt, % Optional: Set the border line width
+  roundcorner=5pt, % Optional: Set rounded corners
+  nobreak=true % Optional: Prevent page breaks within the environment
+]{pinked}
+
+\theoremstyle{definition}
+\newtheorem{qqq}{问题}[section]
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+\NewEnviron{aaa}{~\\
+    \noindent {\textcolor{teal}{\textbf{解答}} \BODY }
+}
+
+\NewEnviron{llll}{
+    \noindent {~\\$\ExternalLink$ 外部链接 $\,\,\,$ \color{blue}\url{\BODY} }
+}
+
+\renewcommand{\proofname}{证明}
+\renewcommand\qedsymbol{${\boxed{\substack{\textit{完证}\\\textit{毕明}}}}$}
+
+
+% Define a custom command for \kuing
+\newcommand{\kuing}{\texorpdfstring{$\textstyle{\int_u^c k}=\texttt{kuing}$}{}}
+
+
+
+% Change equation numbering to include the section number
+\usepackage{cleveref}
+\renewcommand{\theequation}{\thesection.\thesubsection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%我可以在这里定义一些简化的命令一图便利
+\newcommand{\sspan}{\operatorname{span}}%定义span正体
+\newcommand{\op}[1]{\operatorname{#1}}%简化函数表达
+\newcommand{\cnm}[2]{\binom{#1}{#2} }%简化组合数命令
+\newcommand{\set}[2]{\{ #1 \mid #2\}}%定义集合表示
+\newcommand{\FF}{\mathbb{F}}%数域
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+
+%%注意:  行内公式强制行间形式用"  \limits  ",反之用  "  \nolimits   ";
+%%注意:  公式引用编号 :" \label{}  ";   公式显示编号" \tag{}  ":  引用公式"  \eqref{}    "
+
+
+%截止到这里是我定义的
+
+\usepackage{listings}
+% Define listings style
+\lstset{
+  frame=tb,
+  language=TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{定义}
+\newtheorem*{proposition}{命题}
+\newtheorem*{theorem}{定理}
+\newtheorem*{notation}{记号}
+\newtheorem*{example}{例子}
+\newtheorem*{exercise}{习题}
+\theoremstyle{remark}
+\newtheorem*{remark}{备注}
+\newtheorem*{lemma}{引理}
+\newtheorem*{corollary}{推论}
+
+
+
+\title{第十一周作业}
+\author{董仕强}
+
+\setcounter{section}{-1}
+
+\setcounter{page}{0}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section{说明}
+
+可以将作业中遇到的问题标注在此. 如有, 请补充.
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% 请从此处开始阅读 %%%%%%%%%%%%%%%%
+
+\section{exercise 0}
+Show that $\varphi ^\ast$ is injective when $\varphi$ is surjective.
+\begin{aaa}
+    $\forall l_1,l_2 \in V^*$ 且 $\varphi^*(l_1)=\varphi^*(l_2)$ ,那么即$\forall u\in U$ , $\varphi^*(l_1)(u)=\varphi^*(l_2)(u)$ , 即 $l_1(\varphi(u))=l_2(\varphi(u))$ ,\\
+    由于$\varphi$满射 , $\forall v \in V, \exists u \in U$ such that $\varphi(u)=v$ ,\\
+    所以 $\forall v \in V$ , $l_1(v)=l_2(v)$ ,即 $l_1=l_2$ .
+\end{aaa}   
+
+\section{exercise 1}
+Show that $\operatorname{ann}(\operatorname{im} \varphi)$ and $\ker (\varphi^\ast)$ are the same subspaces of $V^\ast$.
+\begin{aaa}
+    $\op{ann}(\op{im}\varphi)=\{f\mid f(\op{im}\varphi)=0\}$\\
+    $\ker (\varphi^*)=\{l\mid \varphi^*(l)=0\}=\{l\mid \forall u \in U, \varphi^*(l)(u)=0\}=\{l\mid l(\varphi(u))=0, \forall u\in U\}$.
+\end{aaa}
+\section{Exercise 2}
+When $\varphi$ is surjective, show that $\operatorname{im} (\varphi^\ast)$ and $\operatorname{ann}(\ker \varphi)$ are the same subspaces of $U^\ast$
+\begin{aaa}
+    $\op{ann}(\ker(\varphi))=\{f\mid f(\ker \varphi)=0\}$\\
+    $\op{im}(\varphi^*)=\{l\circ \varphi\mid l\in V^*\}$\\
+    Obviously, $\op{im}(\varphi^*)\subset \op{ann}(\ker(\varphi))$\\
+    $\forall f\in \op{ann}(\ker\varphi)$ , Let $g(v)=g(\varphi(u))=f(u)$, 这是良定义的,因为$\varphi(u)=\varphi(u')=v$, $u-u'\in \ker \varphi$.\\
+    so $f=g\circ \varphi\in \op{im}(\varphi^*)$
+\end{aaa}
+\section{Exercise 3}
+When $\varphi : S \hookrightarrow V$ is injective, show that both $(V/S)^\ast$ and $\operatorname{ann}(S)$ are isomorphic to $\ker (\varphi ^\ast)$. 
+\begin{aaa}
+    有1, $\ker(\varphi^*)=\op{ann}(\op{im}\varphi)$, 由于$\varphi$单射, $\op{im}\varphi\cong S$\\因此$\ker(\varphi^*)\cong \op{ann}(S)$\\
+    而令$l: (V/S)^*\to\op{ann}(S),\quad f\mapsto l(f)$, $f(v+S)=g(v)$, 这是良定义的.那么$\ker l=0$, 并且$l$ 显然满.\\
+
+
+\end{aaa}
+
+\section{Exercise 4}
+For any $V$, we define the evaluation as before:
+$$
+\Phi _V : V \to V^{\ast\ast}, \quad v \mapsto \begin{bmatrix}V^\ast & \to & \mathbb F \\\ell & \mapsto & \ell (v)\end{bmatrix}.
+$$
+We define $\varphi^{\ast \ast} := (\varphi ^\ast)^\ast$, that is, the pre-composition of $\ell : U^\ast \to \mathbb F$ by $\varphi ^\ast : V^\ast \to U^\ast$. Show the equality of the compositions 
+$$
+\left[U \xrightarrow f V \xrightarrow {\Phi_V} V^{\ast\ast} \right] =\left[U \xrightarrow {\Phi_U} U^{\ast\ast} \xrightarrow{f^{\ast\ast}} V^{\ast\ast} \right].
+$$
+In other words, $\Phi _V(f(u)) = f^{\ast\ast}(\Phi _U(u))$ for any $u \in U$. This is why we say $\Phi$ is natural.
+
+\begin{aaa}
+    等式左边为$u\mapsto [l\mapsto l(f(u))]$\\
+    等式右边为$[u\mapsto k(u)]\mapsto [l\mapsto l(v)]=u\mapsto [l\circ f\mapsto l\circ f(u)]$
+\end{aaa}
+\section{Exercise 5}
+Show that 
+$$
+a : \mathbb F^{m \times n} \to (\mathbb F^{n \times m})^\ast ,\quad M \mapsto \begin{bmatrix}\mathbb F^{n \times m} & \to & \mathbb F \\ X& \mapsto & \mathrm{trace}(M\cdot X)\end{bmatrix}
+$$
+is a linear map. And show that $a$ is surjective.\
+\begin{aaa}
+    $a(M+N)=[X\mapsto tr((M+N)\cdot X)]=[X\mapsto M\cdot X]+[X\mapsto N\cdot X]=a(M)+a(N)$\\
+    $a(\lambda M)=[X\mapsto tr((\lambda M)\cdot X)]=\lambda[X\mapsto tr(M\cdot X)]=\lambda a(M)$\\
+    取$(\FF^{n\times m})^*$的基$f(E_[ij])=tr(M\cdot E_{ij})$. 显然对于每个映射$f$都存在$M$使得$a(M)=f.$
+\end{aaa}
+\section{Exercise 6}
+\begin{aaa}
+    Z1:$\op{ann}(\op{col}(A))=\{y\mid y^TAx=0,\forall x\}=\{y\mid A^Ty=0\}=\ker A^T$\\
+    Z3:$\op{ann}(\ker A)=\{y\mid y^Tx=0 \forall Ax=0\}=col(A^T)$\\
+    Z4:$\ker(\ker(A^T))=\{z\mid y^Tz=0,\forall A^Ty=0\}=\op{col}(A)$\\
+    Z5:$A$行满秩,则$A^T$列满秩\\
+    Z6:$A$列满秩,则$A^T$行满秩 
+\end{aaa}
+\end{document}

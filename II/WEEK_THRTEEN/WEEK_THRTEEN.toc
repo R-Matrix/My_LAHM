@@ -1,0 +1,7 @@
+\contentsline {section}{\numberline {0}说明}{0}{section.0}%
+\contentsline {subsection}{\numberline {0.1}Exercise 1}{1}{subsection.0.1}%
+\contentsline {subsection}{\numberline {0.2}Exercise 2}{1}{subsection.0.2}%
+\contentsline {subsection}{\numberline {0.3}Exercise 2.5}{1}{subsection.0.3}%
+\contentsline {subsection}{\numberline {0.4}Exercise 3}{1}{subsection.0.4}%
+\contentsline {subsection}{\numberline {0.5}Exercise 4}{2}{subsection.0.5}%
+\contentsline {subsection}{\numberline {0.6}Exercise 5}{2}{subsection.0.6}%
