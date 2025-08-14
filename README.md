@@ -1,4 +1,4 @@
-# laTeX
+# Write in laTeX
 这是我的高代作业
 
 具体题目和解析可见 [此处](https://github.com/czhang271828/Linear-algebra/tree/main)
